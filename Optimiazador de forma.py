@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # Constants
 RECTANGLE_WIDTH = 10.0
 RECTANGLE_HEIGHT = 8.0
-CIRCLE_RADII = [1.0, 2.0, 3.0]
+CIRCLE_RADII = [1.0, 2.0, 3.0, 1.5, 2.5]  # Updated list with 5 radii
 
 def calculate_overlap_area(center_points, radii):
     total_overlap = 0.0
@@ -31,14 +31,19 @@ def objective_function(x):
     return calculate_overlap_area(center_points, CIRCLE_RADII)
 
 # Constraints
-def rectangle_width_constraint(x):
-    return RECTANGLE_WIDTH - max(x[:len(CIRCLE_RADII)]) - max(CIRCLE_RADII)
+def circle_constraint(x):
+    num_circles = len(CIRCLE_RADII)
+    x_coordinates = x[:num_circles]
+    y_coordinates = x[num_circles:]
+    
+    constraints = []
+    for i in range(num_circles):
+        constraints.append(RECTANGLE_WIDTH - x_coordinates[i] - CIRCLE_RADII[i])
+        constraints.append(RECTANGLE_HEIGHT - y_coordinates[i] - CIRCLE_RADII[i])
+    
+    return constraints
 
-def rectangle_height_constraint(x):
-    return RECTANGLE_HEIGHT - max(x[len(CIRCLE_RADII):]) - max(CIRCLE_RADII)
-
-constraints = [{'type': 'ineq', 'fun': rectangle_width_constraint},
-               {'type': 'ineq', 'fun': rectangle_height_constraint}]
+constraints = [{'type': 'ineq', 'fun': circle_constraint}]
 
 # Initial guess
 initial_guess = np.random.rand(2 * len(CIRCLE_RADII))
@@ -57,6 +62,10 @@ ax.set_xlim(0, RECTANGLE_WIDTH)
 ax.set_ylim(0, RECTANGLE_HEIGHT)
 ax.set_aspect('equal')
 ax.set_title('Optimized Circle Arrangement')
+
+# Plot rectangle
+rectangle = plt.Rectangle((0, 0), RECTANGLE_WIDTH, RECTANGLE_HEIGHT, ec='red', fc='none')
+ax.add_patch(rectangle)
 
 # Plot circles
 for center, radius in zip(center_points, CIRCLE_RADII):
