@@ -1,75 +1,92 @@
-import numpy as np
-from scipy.optimize import minimize
+import math
 import matplotlib.pyplot as plt
+from matplotlib.patches import Ellipse
 
-# Constants
-RECTANGLE_WIDTH = 10.0
-RECTANGLE_HEIGHT = 8.0
-CIRCLE_RADII = [1.0, 2.0, 3.0, 1.5, 2.5]  # Updated list with 5 radii
+class Circle:
+    def __init__(self, x, y, radius):
+        self.x = x
+        self.y = y
+        self.radius = radius
 
-def calculate_overlap_area(center_points, radii):
-    total_overlap = 0.0
-    num_circles = len(center_points)
-    
-    for i in range(num_circles):
-        for j in range(i + 1, num_circles):
-            distance = np.linalg.norm(center_points[i] - center_points[j])
-            radii_sum = radii[i] + radii[j]
-            
-            if distance < radii_sum:
-                overlap = radii_sum - distance
-                total_overlap += overlap * overlap
-            
-    return total_overlap
+def pack_circles(rectangle_width, rectangle_height, circle_diameters):
+    circles = []
+    remaining_diameters = sorted(circle_diameters, reverse=True)
 
-def objective_function(x):
-    num_circles = len(CIRCLE_RADII)
-    x_coordinates = x[:num_circles]
-    y_coordinates = x[num_circles:]
-    center_points = np.column_stack((x_coordinates, y_coordinates))
-    
-    return calculate_overlap_area(center_points, CIRCLE_RADII)
+    while remaining_diameters:
+        circle_diameter = remaining_diameters.pop(0)
+        circle_radius = circle_diameter / 2
 
-# Constraints
-def circle_constraint(x):
-    num_circles = len(CIRCLE_RADII)
-    x_coordinates = x[:num_circles]
-    y_coordinates = x[num_circles:]
-    
-    constraints = []
-    for i in range(num_circles):
-        constraints.append(RECTANGLE_WIDTH - x_coordinates[i] - CIRCLE_RADII[i])
-        constraints.append(RECTANGLE_HEIGHT - y_coordinates[i] - CIRCLE_RADII[i])
-    
-    return constraints
+        if not circles:
+            x = circle_radius
+            y = circle_radius
+        else:
+            x, y = find_best_position(circles, circle_radius, rectangle_width, rectangle_height)
 
-constraints = [{'type': 'ineq', 'fun': circle_constraint}]
+        if x is not None and y is not None:
+            circles.append(Circle(x, y, circle_radius))
 
-# Initial guess
-initial_guess = np.random.rand(2 * len(CIRCLE_RADII))
+    return circles
 
-# Solve the optimization problem
-solution = minimize(objective_function, initial_guess, constraints=constraints)
+def find_best_position(circles, radius, width, height):
+    best_x = None
+    best_y = None
+    min_distance = float('inf')
 
-# Extract the optimized coordinates
-x_coordinates = solution.x[:len(CIRCLE_RADII)]
-y_coordinates = solution.x[len(CIRCLE_RADII):]
-center_points = np.column_stack((x_coordinates, y_coordinates))
+    for x in range(int(radius), int(width - radius) + 1):
+        for y in range(int(radius), int(height - radius) + 1):
+            distance = min_distance_to_circles(x, y, radius, circles)
 
-# Visualization
-fig, ax = plt.subplots()
-ax.set_xlim(0, RECTANGLE_WIDTH)
-ax.set_ylim(0, RECTANGLE_HEIGHT)
-ax.set_aspect('equal')
-ax.set_title('Optimized Circle Arrangement')
+            if distance >= 0 and distance < min_distance:
+                min_distance = distance
+                best_x = x
+                best_y = y
 
-# Plot rectangle
-rectangle = plt.Rectangle((0, 0), RECTANGLE_WIDTH, RECTANGLE_HEIGHT, ec='red', fc='none')
-ax.add_patch(rectangle)
+    return best_x, best_y
 
-# Plot circles
-for center, radius in zip(center_points, CIRCLE_RADII):
-    circle = plt.Circle(center, radius, ec='black', fc='none')
-    ax.add_patch(circle)
+def min_distance_to_circles(x, y, radius, circles):
+    for circle in circles:
+        dx = circle.x - x
+        dy = circle.y - y
+        distance = math.sqrt(dx * dx + dy * dy)
 
-plt.show()
+        if distance < circle.radius + radius:
+            return -1
+
+    return distance - radius
+
+def plot_circles(rectangle_width, rectangle_height, circles):
+    fig, ax = plt.subplots()
+    ax.set_xlim([0, rectangle_width])
+    ax.set_ylim([0, rectangle_height])
+
+    for circle in circles:
+        circle_patch = Ellipse((circle.x, circle.y), circle.radius*2, circle.radius*2, edgecolor='black', facecolor='none')
+        ax.add_patch(circle_patch)
+
+    plt.gca().set_aspect('equal', adjustable='box')
+    plt.show()
+
+def relacion_utilizacion(rectangle_width, rectangle_height, circle_diameters):
+    rectangle_area = rectangle_height * rectangle_width
+    circles_areas = 0
+
+    for i in circle_diameters:
+        print(i)
+        area = (((i)**2) * 3.14)/4
+        circles_areas = area + circles_areas 
+
+    ru = (circles_areas/rectangle_area)*100
+
+    return round(ru, 3)
+
+# Example usage
+rectangle_width = 1500
+rectangle_height = 3000
+circle_diameters = [355, 355, 355, 355, 355, 435, 435, 435, 435, 435, 505, 505, 505, 505, 505]
+
+circles = pack_circles(rectangle_width, rectangle_height, circle_diameters)
+
+plot_circles(rectangle_width, rectangle_height, circles)
+
+ru = relacion_utilizacion(rectangle_width, rectangle_height, circle_diameters)
+print("Relacion de utilizacion: ", ru)
