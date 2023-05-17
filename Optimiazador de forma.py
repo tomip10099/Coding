@@ -2,10 +2,11 @@ import math
 import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
 
-# Constants
-RECTANGLE_WIDTH = 10.0
-RECTANGLE_HEIGHT = 8.0
-CIRCLE_RADII = [1.0, 2.0, 3.0, 1.5, 2.5]  # Updated list with 5 radii
+class Circle:
+    def __init__(self, x, y, radius):
+        self.x = x
+        self.y = y
+        self.radius = radius
 
 def pack_circles(rectangle_width, rectangle_height, circle_diameters):
     circles = []
@@ -70,7 +71,6 @@ def relacion_utilizacion(rectangle_width, rectangle_height, circle_diameters):
     circles_areas = 0
 
     for i in circle_diameters:
-        print(i)
         area = (((i)**2) * 3.14)/4
         circles_areas = area + circles_areas 
 
@@ -88,4 +88,4 @@ circles = pack_circles(rectangle_width, rectangle_height, circle_diameters)
 plot_circles(rectangle_width, rectangle_height, circles)
 
 ru = relacion_utilizacion(rectangle_width, rectangle_height, circle_diameters)
-print("Relacion de utilizacion: ", ru)
+print("Relacion de utilizacion: ", ru, " %")
