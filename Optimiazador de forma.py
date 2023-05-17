@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # Constants
 RECTANGLE_WIDTH = 10.0
 RECTANGLE_HEIGHT = 8.0
-CIRCLE_RADII = [1.0, 2.0, 3.0, 1.5, 2.5]  # Updated list with 5 radii
+CIRCLE_RADII = [1.0, 2.0, 3.0, 1.5, 3.0]  # Updated list with 5 radii
 
 def calculate_overlap_area(center_points, radii):
     total_overlap = 0.0
