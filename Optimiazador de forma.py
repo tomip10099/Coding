@@ -8,6 +8,38 @@ class Circle:
         self.y = y
         self.radius = radius
 
+def count_contact_points(x, y, radius, circles):
+    contact_points = 0
+
+    for circle in circles:
+        dx = circle.x - x
+        dy = circle.y - y
+        distance = math.sqrt(dx * dx + dy * dy)
+
+        if distance < circle.radius + radius:
+            contact_points += 1
+
+    return contact_points
+
+def find_best_position(circles, radius, width, height):
+    best_x = None
+    best_y = None
+    max_contact_points = -1
+    min_distance = float('inf')
+
+    for x in range(int(radius), int(width - radius) + 1):
+        for y in range(int(radius), int(height - radius) + 1):
+            contact_points = count_contact_points(x, y, radius, circles)
+            distance = min_distance_to_circles(x, y, radius, circles)
+
+            if contact_points > max_contact_points and distance >= 0 and distance < min_distance:
+                max_contact_points = contact_points
+                min_distance = distance
+                best_x = x
+                best_y = y
+
+    return best_x, best_y
+
 def pack_circles(rectangle_width, rectangle_height, circle_diameters):
     circles = []
     remaining_diameters = sorted(circle_diameters, reverse=True)
@@ -26,22 +58,6 @@ def pack_circles(rectangle_width, rectangle_height, circle_diameters):
             circles.append(Circle(x, y, circle_radius))
 
     return circles
-
-def find_best_position(circles, radius, width, height):
-    best_x = None
-    best_y = None
-    min_distance = float('inf')
-
-    for x in range(int(radius), int(width - radius) + 1):
-        for y in range(int(radius), int(height - radius) + 1):
-            distance = min_distance_to_circles(x, y, radius, circles)
-
-            if distance >= 0 and distance < min_distance:
-                min_distance = distance
-                best_x = x
-                best_y = y
-
-    return best_x, best_y
 
 def min_distance_to_circles(x, y, radius, circles):
     for circle in circles:
@@ -81,11 +97,11 @@ def relacion_utilizacion(rectangle_width, rectangle_height, circle_diameters):
 # Example usage
 rectangle_width = 1500
 rectangle_height = 3000
-circle_diameters = [355, 355, 355, 355, 355, 435, 435, 435, 435, 435, 505, 505, 505, 505, 505]
+circle_diameters = [355, 355, 435, 435, 505, 505, 355, 355, 355, 435, 435, 435, 505, 505, 505]
 
 circles = pack_circles(rectangle_width, rectangle_height, circle_diameters)
 
 plot_circles(rectangle_width, rectangle_height, circles)
 
 ru = relacion_utilizacion(rectangle_width, rectangle_height, circle_diameters)
-print("Relacion de utilizacion: ", ru, " %")
+print("Relacion de utilizacion: ", ru, "%")
