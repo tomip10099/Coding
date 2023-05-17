@@ -2,11 +2,10 @@ import math
 import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
 
-class Circle:
-    def __init__(self, x, y, radius):
-        self.x = x
-        self.y = y
-        self.radius = radius
+# Constants
+RECTANGLE_WIDTH = 10.0
+RECTANGLE_HEIGHT = 8.0
+CIRCLE_RADII = [1.0, 2.0, 3.0, 1.5, 2.5]  # Updated list with 5 radii
 
 def pack_circles(rectangle_width, rectangle_height, circle_diameters):
     circles = []
