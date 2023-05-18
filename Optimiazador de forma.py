@@ -1,7 +1,7 @@
 import math
 import matplotlib.pyplot as plt
 import random
-from matplotlib.patches import Ellipse
+from matplotlib.patches import Ellipse, Rectangle
 
 class Circle:
     def __init__(self, x, y, radius):
@@ -79,10 +79,17 @@ def min_distance_to_circles(x, y, radius, circles):
 
     return distance - radius
 
-def plot_circles(rectangle_width, rectangle_height, circles):
+def plot_circles(rectangle_width, rectangle_height, circles, top_circle_limit):
     fig, ax = plt.subplots()
     ax.set_xlim([0, rectangle_width])
     ax.set_ylim([0, rectangle_height])
+
+        # Dibujar el rectángulo
+    rectangle_patch = Rectangle((0, 0), rectangle_width, rectangle_height, edgecolor='red', facecolor='none')
+    ax.add_patch(rectangle_patch)
+
+        # Dibujar la línea horizontal
+    plt.axhline(y=top_circle_limit, color='green')
 
     for circle in circles:
         circle_patch = Ellipse((circle.x, circle.y), circle.radius*2, circle.radius*2, edgecolor='black', facecolor='none')
@@ -91,7 +98,11 @@ def plot_circles(rectangle_width, rectangle_height, circles):
     plt.gca().set_aspect('equal', adjustable='box')
     plt.show()
 
-def calculate_packing_efficiency(length, width, diameters):
+def calculate_packing_efficiency(rectangle_height, rectangle_width, diameters, top_circle_limit):
+
+    height = rectangle_height - top_circle_limit
+    width = rectangle_width
+
     # Calculate radii for each type of circle
     radii = [diameter / 2 for diameter in diameters]
 
@@ -102,7 +113,7 @@ def calculate_packing_efficiency(length, width, diameters):
         nH = math.floor(width / diameters[i])
 
         # Calculate the number of circles in the vertical direction
-        nV = math.floor(length / (1.5 * radii[i]))
+        nV = math.floor(height / (1.5 * radii[i]))
 
         # Calculate the total number of circles for each type
         total_circles = nH * nV
@@ -114,21 +125,42 @@ def calculate_packing_efficiency(length, width, diameters):
         packing_efficiency += area_circles
 
     # Calculate the total area of the rectangle
-    total_area = length * width
+    total_area = height * width
 
     # Calculate the packing efficiency percentage
     packing_efficiency_percentage = (packing_efficiency / total_area) * 100
 
     return packing_efficiency_percentage
 
+def find_top_circle(circles):
+
+    circle_limit = 0
+    top_circle_limit = -1
+    i = 0
+
+    while circle_limit > top_circle_limit:
+
+        top_circle_limit = circle_limit
+        i = i - 1
+
+        last_circle = circles[i]
+        cord = last_circle.y
+        rad = last_circle.radius
+        circle_limit = cord + rad
+        
+    return top_circle_limit
+
+
 # Example usage
 rectangle_width = 1500
 rectangle_height = 3000
-circle_diameters = [355, 355, 435, 435, 505, 505, 355, 355, 355, 435, 435, 435, 505, 505, 505]
+circle_diameters = [355, 355, 435, 435, 505, 505, 355, 355, 355]
 
 circles, seed_value = pack_circles(rectangle_width, rectangle_height, circle_diameters)
 
-plot_circles(rectangle_width, rectangle_height, circles)
+top_circle_limit = find_top_circle(circles)
 
-efficiency = calculate_packing_efficiency(rectangle_height, rectangle_height, circle_diameters)
+efficiency = calculate_packing_efficiency(rectangle_height, rectangle_height, circle_diameters, top_circle_limit)
 print(f"Packing Efficiency: {efficiency:.2f}%")
+
+plot_circles(rectangle_width, rectangle_height, circles, top_circle_limit)
