@@ -141,9 +141,9 @@ def find_top_circle(circles):
 
 
 # Example usage
-rectangle_width = 1500
-rectangle_height = 3000
-circle_diameters = [355, 355, 435, 435, 505, 505, 355, 355, 355, 505]
+rectangle_width = 1000
+rectangle_height = 2000
+circle_diameters = [500, 500, 500, 500]
 
 circles, seed_value = pack_circles(rectangle_width, rectangle_height, circle_diameters)
 
