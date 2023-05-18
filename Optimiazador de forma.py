@@ -98,28 +98,17 @@ def plot_circles(rectangle_width, rectangle_height, circles, top_circle_limit):
     plt.gca().set_aspect('equal', adjustable='box')
     plt.show()
 
-def calculate_packing_efficiency(rectangle_height, rectangle_width, diameters, top_circle_limit):
+def calculate_packing_efficiency(rectangle_width, diameters, top_circle_limit):
 
-    height = rectangle_height - top_circle_limit
+    height = top_circle_limit
     width = rectangle_width
 
-    # Calculate radii for each type of circle
-    radii = [diameter / 2 for diameter in diameters]
-
-    packing_efficiency = 0.0
+    packing_efficiency = 0
 
     for i in range(len(diameters)):
-        # Calculate the number of circles in the horizontal direction
-        nH = math.floor(width / diameters[i])
-
-        # Calculate the number of circles in the vertical direction
-        nV = math.floor(height / (1.5 * radii[i]))
-
-        # Calculate the total number of circles for each type
-        total_circles = nH * nV
 
         # Calculate the area occupied by the circles for each type
-        area_circles = total_circles * math.pi * radii[i] ** 2
+        area_circles = (3.1416 * (i ** 2)) / 4
 
         # Update the packing efficiency
         packing_efficiency += area_circles
@@ -129,6 +118,10 @@ def calculate_packing_efficiency(rectangle_height, rectangle_width, diameters, t
 
     # Calculate the packing efficiency percentage
     packing_efficiency_percentage = (packing_efficiency / total_area) * 100
+    print(height)
+    print(width)
+    print(total_area)
+    print(packing_efficiency)
 
     return packing_efficiency_percentage
 
@@ -154,13 +147,13 @@ def find_top_circle(circles):
 # Example usage
 rectangle_width = 1500
 rectangle_height = 3000
-circle_diameters = [355, 355, 435, 435, 505, 505, 355, 355, 355]
+circle_diameters = [355, 355, 435, 435, 505, 505, 355, 355, 355, 505]
 
 circles, seed_value = pack_circles(rectangle_width, rectangle_height, circle_diameters)
 
 top_circle_limit = find_top_circle(circles)
 
-efficiency = calculate_packing_efficiency(rectangle_height, rectangle_height, circle_diameters, top_circle_limit)
+efficiency = calculate_packing_efficiency(rectangle_height, circle_diameters, top_circle_limit)
 print(f"Packing Efficiency: {efficiency:.2f}%")
 
 plot_circles(rectangle_width, rectangle_height, circles, top_circle_limit)
