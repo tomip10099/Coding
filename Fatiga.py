@@ -24,4 +24,3 @@ Smax = Fmax/A #Tension maxima [Kgf / mm2]
 Smin = Fmin/A #Tension minima [Kgf / mm2]
 
 Smed = (Smax + Smin) / 2 #Tension Media [Kgf / mm2]
-S
