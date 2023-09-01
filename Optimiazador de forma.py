@@ -27,7 +27,7 @@ def find_best_position(circles, radius, width, height):
     best_y = None
     max_contact_points = -1
     min_distance = float('inf')
-
+    
     for y in range(int(radius), int(height - radius) + 1):
         for x in range(int(radius), int(width - radius) + 1):
             contact_points = count_contact_points(x, y, radius, circles)
