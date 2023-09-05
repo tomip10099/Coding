@@ -1,64 +1,73 @@
 import json
 
+#HR: Hot Rolled; Rolado en caliente
+#CD: Cold Drawn; Deformado en frio ; mayor Sy y leve incremento de Su
+#Su: Tensile Strength; Tension ultima
+#Sy: Yield Strength; Tension de fluencia
+#Todos los valores se encuentran en kg/mm2
+
+# Su = 3.4 Hb [Mpa] para aceros
+
+
 diccionario = {
     'SAE 1006HR': {
-        'Ts': 30.60,
-        'Tf': 17.33,
+        'Su': 30.60,
+        'Sy': 17.33,
         'HB': 86
     },
     'SAE 1006CD': {
-        'Ts': 33.65,
-        'Tf': 28.55,
+        'Su': 33.65,
+        'Sy': 28.55,
         'HB': 95
     },
     'SAE 1010HR': {
-        'Ts': 32.63,
-        'Tf': 18.35,
+        'Su': 32.63,
+        'Sy': 18.35,
         'HB': 95
     },
     'SAE 1010CD': {
-        'Ts': 37.72,
-        'Tf': 30.59,
+        'Su': 37.72,
+        'Sy': 30.59,
         'HB': 105
     },
     'SAE 1015HR': {
-        'Ts': 34.67,
-        'Tf': 19.37,
+        'Su': 34.67,
+        'Sy': 19.37,
         'HB': 101
     },
     'SAE 1015CD': {
-        'Ts': 39.76,
-        'Tf': 32.63,
+        'Su': 39.76,
+        'Sy': 32.63,
         'HB': 111
     }, #Hasta aca estan completos los datos.
     'SAE 1018HR': {
-        'Ts': 30.60,
-        'Tf': 17.33,
+        'Su': 30.60,
+        'Sy': 17.33,
         'HB': 86
     },
     'SAE 1018CD': {
-        'Ts': 30.60,
-        'Tf': 17.33,
+        'Su': 30.60,
+        'Sy': 17.33,
         'HB': 86
     },
     'SAE 1020HR': {
-        'Ts': 30.60,
-        'Tf': 17.33,
+        'Su': 30.60,
+        'Sy': 17.33,
         'HB': 86
     },
     'SAE 1020CD': {
-        'Ts': 30.60,
-        'Tf': 17.33,
+        'Su': 30.60,
+        'Sy': 17.33,
         'HB': 86
     },
     'SAE 1030HR': {
-        'Ts': 30.60,
-        'Tf': 17.33,
+        'Su': 30.60,
+        'Sy': 17.33,
         'HB': 86
     },
     'SAE 1030CD': {
-        'Ts': 30.60,
-        'Tf': 17.33,
+        'Su': 30.60,
+        'Sy': 17.33,
         'HB': 86
     },
 }
