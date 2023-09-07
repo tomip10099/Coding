@@ -2,7 +2,7 @@ import json
 
 #HR: Hot Rolled; Rolado en caliente
 #CD: Cold Drawn; Deformado en frio ; mayor Sy y leve incremento de Su
-#Su: Tensile Strength; Tension ultima
+#Su: Tensile Strength; Tension ultima, para el caso de materiales fragiles tambien se la conoce como Sut y coincide con la tension de rotura
 #Sy: Yield Strength; Tension de fluencia
 #Todos los valores se encuentran en kg/mm2
 

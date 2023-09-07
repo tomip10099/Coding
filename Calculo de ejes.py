@@ -1,4 +1,5 @@
 import numpy as np
+import json
 
 #Shaft = Arbol
 #Axle = eje
@@ -58,3 +59,19 @@ tmt_sc = kfs * ((16 * Tm) / (np.pi * (d**3))) #Tension media de torsion
 #Composicion de tensiones
 sa = ((saf_sc**2) + (3 * (tat_sc**2)))**(1/2) #Sigma alterno
 sm = ((smf_sc**2) + (3 * (tmt_sc**2)))**(1/2) #Sigma medio
+
+
+#Variables del material
+with open("materialesSAE.json", "r") as file:
+    materialesSAE = json.load(file)
+
+material_name = "SAE 1006HR"
+
+n = 1 #Coeficiente de seguridad
+Se = 1 #Tension limite de fatiga
+Su = materialesSAE[material_name]["Su"] #Tension ultima
+
+
+#Metodo de calculo por Goodman
+
+d = (((16*n) / np.pi) * ((1/Se) * (((4 * ((kf * Ma)**2)) + (3 * ((kfs * Ta)**2)))**(1/2)) + (1/Su) * (((4 * ((kf * Mm)**2)) + (3 * ((kfs * Tm)**2)))**1/2)))**(1/3)  #Calculo del diametro minimo [mm]
