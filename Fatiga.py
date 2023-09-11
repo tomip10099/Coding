@@ -9,36 +9,59 @@
 
 #CALCULO POR ESFUERZO
 
-def tension_fatiga(Su, Sy):
+def tension_fatiga(Su, rot, d):
+
+    #Tension de fatiga de probeta de acuerdo al material
+    if Su < 142:
+        Se_p = 0.5 * Su
+    else:
+        Se_p = 71.38
+    #Para valores de
+    # Su < 142 kg/mm2 --> Se_p = 0.5 * Su
+    # Su > 142 kg/mm2 --> Se_p = 71.38
 
     #Coeficiente de terminacion superficial
     ka = ka_a * ((Su* 9.8066)**ka_b) #Se convierte la tension ultima a Mpa al multiplicar por 9.8
 
-    ka_a = 1 #Factor de terminacion, se listan a continuacion
+    
+    #Factor de terminacion, se listan a continuacion
+    ka_a = 4.51 
     # Pulido = 1.58
     # Mecanizado o forjado en frio = 4.51
     # Rolado en caliente = 57.5
     # Forjado = 272
 
-    ka_b = 1 #Exponente de terminacion, se listan a continuacion
+    
+    #Exponente de terminacion, se listan a continuacion
+    ka_b = -0.265
     # Pulido = -0.085
     # Mecanizado o forjado en frio = -0.265
     # Rolado en caliente = -0.718
     # Forjado = -0.995
 
 
-    #Coefiente de tamaño
+    #Coefiente de tamaño para elementos rotantes
+    rot = True
+
     kb = 1
+
+    #Para secciones circulares:
 
     #Para cargas axiales puras kb = 1
 
     #Para cargas de flexion o torsion, los valores se dictan a continuacion de acuerdo al diametro
+    if d >= 2.79 and d <= 51:
+        # 2.79 <= d <= 51 mm 
+        kb = 1.24 *(d ** -0.107)
 
-    # 2.79 <= d <= 51 mm 
-    # kb = 1.24 *(d ** -0.107)
+    elif d > 51 and d < 254 :
+        # 51 < d <= 254 mm
+        kb = 1.51 * (d ** -0.157)
 
-    # 51 < d <= 254 mm
-    # kb = 1.51 * (d ** -0.157)
+    else:
+        print("Error Calculating factor Kb, Diameter to big. (> 254mm)")
+
+
 
     #en el caso de barras que no sean circulares o que solo esten sometidas a flexion (que no esten rotando) ver a continuacion
     #se emplea el calculo del diametro equivalente (de) y luego se lo reemplaza en las formulas anteriores
@@ -48,7 +71,7 @@ def tension_fatiga(Su, Sy):
     # Seccion Rectangular --> de = 0.808 * ((h * b)**1/2)
  
     #Coeficiente de carga
-    kc = 1 #valores aproximados
+    kc = 0.59 #valores aproximados
     #Torsion = 0.59
     #Flexion = 1
     #Traccion / compresion = 0.85
@@ -89,10 +112,6 @@ def tension_fatiga(Su, Sy):
     kf = 1 #coeficiente de miscelaneos
     #Coefiente que permite tener en consideracion algun otro factor no tabulado perteneciente al estado del material, su proceso u otros (NO ES UN COEFIENTE DE SEGURIDAD)
 
-    Se_p = 0.5 * Su #tension de fatiga de probeta, depende del material
-    #Para valores de
-    # Su < 142 kg/mm2 --> Se_p = 0.5 * Su
-    # Su > 142 kg/mm2 --> Se_p = 71.38
 
     Se = ka * kb * kc * kd * ke * kf * Se_p #Tension de fatiga para el caso especifico
 
@@ -114,126 +133,59 @@ def factor_concentracion_tensiones(kt, kts, q, qs, Su): #Los valores de "kt" y "
 
     return kf, kfs
 
+def Caso_carga_fatiga_simple(Fmax, Fmin, Ar):
 
+    #Definicion de caracteristicas de esfuerzos de fatiga
+    #Fmax = 1000 Fuerza Maxima [Kgf]
+    #Fmin = 500 Fuerza Minima [Kgf]
+    #Ar = 20 Area analisis [mm2]
 
+    Smax = Fmax/Ar #Tension maxima [Kgf / mm2]
+    Smin = Fmin/Ar #Tension minima [Kgf / mm2]
 
+    Smed = ((Smax + Smin) / 2) #Tension Media [Kgf / mm2]
+    Samp = ((Smax - Smin) / 2) #Tension de amplitud [Kgf / mm2]
 
+    return Samp,Smed
 
+def Caso_carga_fatiga_completo(kf_flex, Smax_flex, Smin_flex, kf_ax, Smax_ax, Smin_ax, kfs, Smax_tor, Smin_tor):
 
+    #El analisis para multiples esfuerzos aplicados simultaneamente se basa en el analisis de Von Misses para componer los esfuerzos
+    #De aplicarse este metodo, en el calculo de Se , no usar el coeficiente Kc = 0.59 de torsion ya que ya lo tiene aplicado
 
+    Smed_flex = ((Smax_flex + Smin_flex) / 2) #Tension Media [Kgf / mm2]
+    Samp_flex = ((Smax_flex - Smin_flex) / 2) #Tension de amplitud [Kgf / mm2]
 
+    Smed_ax = ((Smax_ax + Smin_ax) / 2) #Tension Media [Kgf / mm2]
+    Samp_ax = ((Smax_ax - Smin_ax) / 2) #Tension de amplitud [Kgf / mm2]
 
-
-
-
-
-#Definicion de variables del elemento
-Fmax = 1000 #Fuerza Maxima [Kgf]
-Fmin = 500 #Fuerza Minima [Kgf]
-A = 20 #Area analisis [mm2]
-
-#Definicion del tipo de esfuerzo a la que la pieza va a estar sometida
-esfuerzo = 2
-# esfuerzo = 1 ---> La pieza va a estar sometida a traccion
-# esfuerzo = 2 ---> La pieza va a estar sometida a flexion
-# esfuerzo = 3 ---> La pieza va a estar sometida a torsion
-# esfuerzo = 4 ---> La pieza va a estar sometida a compresion
-
-#Variables del material
-E = 205.93 #Modulo de Young de material base [GPa]
-v = 0.3 #coeficiente de poisson
-I = 11500 #Momento de inercia o momento de area de segundo orden [mm^4]
-J = 23000 #Momento de inercia polar [mm4]
-g = 9810 #Fuerza de gravedad  [mm/s^2]
-Sy = 18 #Tension de fluencia [Yield Strength] 
-Su = 35 #Tension de rotura [Ultimate Tensile Strength]
-
-#Definicion de variables internas
-fc1 = 101.971 #Factor de conversion de GPa a Kgf/mm2
-G = (E*fc1) / (2*(1+v)) #Modulo de elasticidad Transversal [kgf/mm2]
-
-Smax = Fmax/A #Tension maxima [Kgf / mm2]
-Smin = Fmin/A #Tension minima [Kgf / mm2]
-
-Smed = ((Smax + Smin) / 2) #Tension Media [Kgf / mm2]
-Samp = ((Smax - Smin) / 2) #Tension de amplitud [Kgf / mm2]
-R = Smin / Smax #Relacion entre tension minima y tension maxima
-
-def calculo_Se(case, esfuerzo, Su):
-
-    ConTen = 1 #Si ConTen = 1, evauluar factores de concentracion de tensione, si ConTen = 0, no hay concentracion de tensiones
-
-    if (ConTen == 1):
-
-        print("Complemento no desarrollado.")
-
-    elif (ConTen == 0):
-        
-        Sfa = 0.45 * Su
+    Smed_tor = ((Smax_tor + Smin_tor) / 2) #Tension Media [Kgf / mm2]
+    Samp_tor = ((Smax_tor - Smin_tor) / 2) #Tension de amplitud [Kgf / mm2]
     
-    if (esfuerzo == 1 and (case == 2 or case == 4)):
-        Se = 0.7 * Sfa
-    
-    elif (esfuerzo == 1 and (case == 3 or case == 5)):
-        Se = (0.7 * Sfa) * 1.8
-    
-    elif (esfuerzo == 2 and (case == 2 or case == 4)):
-        Se = Sfa
-    
-    elif (esfuerzo == 2 and (case == 3 or case == 5)):
-        Se = (0.45 * Su) * 1.4
-    
-    elif (esfuerzo == 3 and (case == 2 or case == 4)): 
-        Se = 0.58 * Sfa #Los efuerzos que se devuelven no son esfuerzos normales, son esfuerzo de corte transversal
-    
-    elif (esfuerzo == 3 and (case == 3 or case == 5)): 
-        Se = 1.9 * (0.58 * Sfa) #Los efuerzos que se devuelven no son esfuerzos normales, son esfuerzo de corte transversal
+    Samp = (((((kf_flex * Samp_flex) + (kf_ax * (Samp_ax/0.85)))**2) + (3 * ((kfs*Samp_tor)**2)))**1/2) #Tension de amplitud [Kgf / mm2]
+    Smed = (((((kf_flex * Smed_flex) + (kf_ax * Smed_ax))**2) + (3 * ((kfs*Smed_tor)**2)))**1/2)  #Tension Media [Kgf / mm2]
 
-    elif (esfuerzo == 4 and (case == 2 or case == 4)):
-        Se = 0.7 * Sfa
+    Smax = Samp + Smed
 
-    elif (esfuerzo == 4 and (case == 3 or case == 5)):
-        Se = 1.3 * ((0.7 * Sfa) * 1.8)
+    return Samp, Smed, Smax
 
-    return Se
+#Criterios de falla para casos de fatiga
+def Criterios_falla_fatiga(Samp, Smed, Sy, Su):
 
-if (R == 1):
-    case = 1 #Caso Estatico
-    print("Tension de amplitud: ", Samp, "Kgf/mm2")
-    print("Tension Media: ", Smed, "Kgf/mm2")
-    print("Tension de falla es: ", Sy, "Kgf/mm2")
+    #Ecuacion de Soderberg
+        #La ecuacion de la recta que relaciona los esfuerzos, con el material y la fatiga es Samp/Se + Smed/Sy = 1
+    Se_f_sod = Samp / (1 - (Smed/Sy))#Tension de fatiga de falla de soderberg
 
-elif (R == -1):
-    case = 2 #Caso alterno simetrico
-    print("Tension de amplitud: ", Samp, "Kgf/mm2")
-    print("Tension Media: ", Smed, "Kgf/mm2")
+     #Ecuacion de Goodman
+        #La ecuacion de la recta que relaciona los esfuerzos, con el material y la fatiga es Samp/Se + Smed/Su = 1
+    Se_f_god = Samp / (1 - (Smed/Su))#Tension de fatiga de falla de Goodman
 
-    Se = calculo_Se(case, esfuerzo, Su)
-    print("Tension de falla es: ", Se, "Kgf/mm2")
+    #Ecuacion de Gerber
+        #La ecuacion de la recta que relaciona los esfuerzos, con el material y la fatiga es Samp/Se + (Smed/Su)^2 = 1
+    Se_f_ger = Samp / (1 - ((Smed/Su)**2))#Tension de fatiga de falla de Gerber
 
-elif (R == 0):
-    case = 3 #Caso Pulsante
-    print("Tension de amplitud: ", Samp, "Kgf/mm2")
-    print("Tension Media: ", Smed, "Kgf/mm2")
+    #Ecuacion de ASME-elliptic
+        #La ecuacion de la recta que relaciona los esfuerzos, con el material y la fatiga es (Samp/Se)^2 + (Smed/Sy)^2 = 1
+    Se_f_asme = Samp / ((1 - ((Smed/Sy)**2))**1/2) #Tension de fatiga de falla de ASME-elliptic
 
-    Se = calculo_Se(case, esfuerzo, Su)
-    print("Tension de falla es: ", Se, "Kgf/mm2")
-
-elif (R <= 0 and R >= -1):
-    case = 4 #Caso Alterno asimetrico
-    print("Tension de amplitud: ", Samp, "Kgf/mm2")
-    print("Tension Media: ", Smed, "Kgf/mm2")
-
-    Se = calculo_Se(case, esfuerzo, Su)
-    print("Tension de falla es: ", Se, "Kgf/mm2")
-
-elif (R <= 0 and R <= 1):
-    case = 5 #Caso Alterno de igual signo
-    print("Tension de amplitud: ", Samp, "Kgf/mm2")
-    print("Tension Media: ", Smed, "Kgf/mm2")
-
-    Se = calculo_Se(case, esfuerzo, Su)
-    print("Tension de falla es: ", Se, "Kgf/mm2")
-
-else:
-    print("Caso no reconocido, ingrese nuevamente los datos.")
+    return Se_f_sod , Se_f_god, Se_f_ger, Se_f_asme
