@@ -21,9 +21,6 @@ def tension_fatiga(Su, rot, d):
     # Su > 142 kg/mm2 --> Se_p = 71.38
 
     #Coeficiente de terminacion superficial
-    ka = ka_a * ((Su* 9.8066)**ka_b) #Se convierte la tension ultima a Mpa al multiplicar por 9.8
-
-    
     #Factor de terminacion, se listan a continuacion
     ka_a = 4.51 
     # Pulido = 1.58
@@ -38,12 +35,12 @@ def tension_fatiga(Su, rot, d):
     # Mecanizado o forjado en frio = -0.265
     # Rolado en caliente = -0.718
     # Forjado = -0.995
-
+    ka = ka_a * ((Su* 9.8066)**ka_b) #Se convierte la tension ultima a Mpa al multiplicar por 9.8
 
     #Coefiente de tamaño para elementos rotantes
     rot = True
 
-    kb = 1
+    #kb = 1
 
     #Para secciones circulares:
 
@@ -71,7 +68,7 @@ def tension_fatiga(Su, rot, d):
     # Seccion Rectangular --> de = 0.808 * ((h * b)**1/2)
  
     #Coeficiente de carga
-    kc = 0.59 #valores aproximados
+    kc = 1 #valores aproximados
     #Torsion = 0.59
     #Flexion = 1
     #Traccion / compresion = 0.85
@@ -96,8 +93,9 @@ def tension_fatiga(Su, rot, d):
 
 
     #Coeficiente de fiabilidad, se calcula en la base al a fiabilidad del calculo y la variaciones que pueden tener los valores de tensiones de rotura (8% de desviacion estandar)
+    za = 2.326 #fiabilidad deseada
     ke = 1 - (0.08*za)
-    za = 0 #fiabilidad deseada
+
     #Lista de fiabilidad
     # 50% -- za = 0
     # 90% -- za = 1.288
@@ -116,31 +114,6 @@ def tension_fatiga(Su, rot, d):
     Se = ka * kb * kc * kd * ke * kf * Se_p #Tension de fatiga para el caso especifico
 
     return Se
-
-def factor_concentracion_tensiones(kt, kts, r, Su): #Los valores de "kt" y "kts" se obtienen de graficos
-
-    #los valores de "q" y "qs" se obtienen de graficos de acuerdo a la resistencia del material
-    # q = notch sensitivity, es decir, sensibilidad a la entalla
-    #Una manera de calcular la sensibilidad a la entalla en el caso de radios empalmes es por medio de la siguiente ecuacion
-    if r != 0 and r > 0:
-    
-        a = 0.246 - (((3.08e-3) * (Su * 1.4223))) + ((1.51e-5) * ((Su * 1.4223)**2)) - ((2.67e-8) * ((Su * 1.4223)**3)) #PARA FLEXION o Traccion/Compresion
-        a_s = 0.190 - (((2.51e-3) * (Su * 1.4223))) + ((1.35e-5) * ((Su * 1.4223)**2)) - ((2.67e-8) * ((Su * 1.4223)**3)) #PARA TORSION
-
-        q = 1 / (1 + (a / (r**1/2))) #donde r = al radio empalme
-        qs = 1 / (1 + (a_s / (r**1/2))) #donde r = al radio empalme
-    
-    else:
-        q = 1
-        qs = 1
-
-    #Los factores de concentracion de tensiones son diferentes de acuerdo al tipo de esfuerzo al que se esta sometido
-
-    kf = 1 + (q * (kt - 1)) #Factor de concentracion de tensiones reducido para esfuerzos de flexion o traccion/compresion
-
-    kfs = 1 + (qs * (kts - 1)) #Factor de concentracion de tensiones reducido para esfuerzos de torsion (shear/corte)
-
-    return kf, kfs
 
 def Caso_carga_fatiga_simple(Fmax, Fmin, Ar):
 

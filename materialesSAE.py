@@ -125,6 +125,11 @@ diccionario = {
         'Sy': 46.874,
         'HB': 248
     },
+        'Ejemplo': {
+        'Su': 73.822,
+        'Sy': 57.651,
+        'HB': 248
+    },
 }
 
 with open('materialesSAE.json', 'w') as archivo:
