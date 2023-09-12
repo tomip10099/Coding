@@ -117,19 +117,28 @@ def tension_fatiga(Su, rot, d):
 
     return Se
 
-def factor_concentracion_tensiones(kt, kts, q, qs, Su): #Los valores de "kt" y "kts" se obtienen de graficos ; los valores de "q" y "qs" se obtienen de graficos de acuerdo a la resistencia del material
-    # q = notch sensitivity, es decir, sensibilidad a la entalla 
+def factor_concentracion_tensiones(kt, kts, r, Su): #Los valores de "kt" y "kts" se obtienen de graficos
+
+    #los valores de "q" y "qs" se obtienen de graficos de acuerdo a la resistencia del material
+    # q = notch sensitivity, es decir, sensibilidad a la entalla
+    #Una manera de calcular la sensibilidad a la entalla en el caso de radios empalmes es por medio de la siguiente ecuacion
+    if r != 0 and r > 0:
+    
+        a = 0.246 - (((3.08e-3) * (Su * 1.4223))) + ((1.51e-5) * ((Su * 1.4223)**2)) - ((2.67e-8) * ((Su * 1.4223)**3)) #PARA FLEXION o Traccion/Compresion
+        a_s = 0.190 - (((2.51e-3) * (Su * 1.4223))) + ((1.35e-5) * ((Su * 1.4223)**2)) - ((2.67e-8) * ((Su * 1.4223)**3)) #PARA TORSION
+
+        q = 1 / (1 + (a / (r**1/2))) #donde r = al radio empalme
+        qs = 1 / (1 + (a_s / (r**1/2))) #donde r = al radio empalme
+    
+    else:
+        q = 1
+        qs = 1
+
     #Los factores de concentracion de tensiones son diferentes de acuerdo al tipo de esfuerzo al que se esta sometido
 
     kf = 1 + (q * (kt - 1)) #Factor de concentracion de tensiones reducido para esfuerzos de flexion o traccion/compresion
 
     kfs = 1 + (qs * (kts - 1)) #Factor de concentracion de tensiones reducido para esfuerzos de torsion (shear/corte)
-
-    #Una manera de calcular la sensibilidad a la entalla en el caso de radios empalmes es por medio de la siguiente ecuacion
-    # q = 1 / (1 + (a / (r**1/2))) donde r = al radio empalme
-
-    # a = 0.246 - (((3.08e-3) * (Su * 1.4223))) + ((1.51e-5) * ((Su * 1.4223)**2)) - ((2.67e-8) * ((Su * 1.4223)**3)) PARA FLEXION o Traccion/Compresion
-    # a = 0.190 - (((2.51e-3) * (Su * 1.4223))) + ((1.35e-5) * ((Su * 1.4223)**2)) - ((2.67e-8) * ((Su * 1.4223)**3)) PARA TORSION
 
     return kf, kfs
 
