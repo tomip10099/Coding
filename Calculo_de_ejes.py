@@ -4,6 +4,12 @@ import Fatiga
 import Secciones
 import Concentracion_Tensiones
 
+import time
+
+st = time.time()
+
+
+
 ############################################################################################
 #Aclaraciones:
 
@@ -33,7 +39,7 @@ import Concentracion_Tensiones
 #Parametros del problema (Ejemplo 7-1 pag 370)
 
 d = 27.94 #Diametro menor [mm]
-D = 41.91 #Diametro mayor [mm]
+Diametro_mayor = 41.91 #Diametro mayor [mm]
 r = 2.794 #Radio de empalme [mm]
 
 Ma = 22.5010 #Momento alterno de flexion [kg.mm]
@@ -57,8 +63,8 @@ Se = Fatiga.tension_fatiga(Su, True, d) #Tension limite de fatiga
 #####################################################################################################
 
 #Concentracion de tensiones
-kt, _ = Concentracion_Tensiones.factores_teoricos(1, D, d, r) #Factor de concentracion de tensiones teorico a flexion
-_, kts = Concentracion_Tensiones.factores_teoricos(1, D, d, r) #Factor de concentracion de tensiones teorico a torsion
+kt, _ = Concentracion_Tensiones.factores_teoricos(1, Diametro_mayor, d, r) #Factor de concentracion de tensiones teorico a flexion
+_, kts = Concentracion_Tensiones.factores_teoricos(1, Diametro_mayor, d, r) #Factor de concentracion de tensiones teorico a torsion
 
 q, _ = Concentracion_Tensiones.sensibilidad_entalla(r, Su) #Sensibilidad a la entalla a flexion/axial
 _, qs = Concentracion_Tensiones.sensibilidad_entalla(r, Su) #Sensibilidad a la entall a torsion
@@ -123,9 +129,9 @@ S_max = (((((32 * kf * (Mm2 + Ma2))/(np.pi * (d2**3)))**2) + (3 * (((16 * kfs * 
 n_y = Sy / S_max #Coeficiente de seguridad de tension maxima de fluencia
 
 print("Calculo de ejes")
-print("Parametros del problema: \n","Diametro Menor: ", d, " mm \n", "Diametro Mayor: ", D, " mm \n","Radio de empalme: ", r, " mm\n" )
+print("Parametros del problema: \n","Diametro Menor: ", d, " mm \n", "Diametro Mayor: ", Diametro_mayor, " mm \n","Radio de empalme: ", r, " mm\n" )
 print("Caracteristicas del material: \n", "Su: ", Su, round(Su2,3), " kg/mm2 (kpsi)\n", "Sy: ", Sy, round(Sy2,3), " kg/mm2 (kpsi)\n", "Se: ", round(Se, 3), round(Se2, 3), " kg/mm2 (kpsi)\n", sep=" ")
-print("Cocnentracion de tensiones: \n", "kt y kts: ", kt, kts, sep="")
+print("Cocnentracion de tensiones: \n", "kt y kts: ", kt, kts, sep=" ")
 print("\n q y qs: ", round(q, 3), round(qs, 3), sep=" ")
 print("\n kf y kfs: ", round(kf, 3), round(kfs, 3), sep=" ")
 
@@ -143,3 +149,10 @@ print("\n Coeficiente de seguridad por Soderberg: ", round(n_soderberg, 2))
 
 print("\n Tension maxima al primer ciclo: ", round(S_max, 3),round(S_max * 1.42334, 3), "kg/mm2 (kpsi)", sep=" ")
 print("\n Coeficiente de seguridad de maxima carga: ", round(n_y, 2))
+
+#
+et = time.time()
+
+ft = et - st
+
+print("Medicion de tiempo: {:.4f} segundos".format(ft) )
