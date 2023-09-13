@@ -107,17 +107,84 @@ def sensibilidad_entalla(r, Su):
     #los valores de "q" y "qs" se obtienen de graficos de acuerdo a la resistencia del material
     # q = notch sensitivity, es decir, sensibilidad a la entalla
     #Una manera de calcular la sensibilidad a la entalla en el caso de radios empalmes es por medio de la siguiente ecuacion
-    if r != 0 and r > 0:
-    
-        a = 0.246 - (((3.08e-3) * (Su * 1.4223))) + ((1.51e-5) * ((Su * 1.4223)**2)) - ((2.67e-8) * ((Su * 1.4223)**3)) #PARA FLEXION o Traccion/Compresion
-        a_s = 0.190 - (((2.51e-3) * (Su * 1.4223))) + ((1.35e-5) * ((Su * 1.4223)**2)) - ((2.67e-8) * ((Su * 1.4223)**3)) #PARA TORSION
 
-        q = 1 / (1 + (a / (r**1/2))) #donde r = al radio empalme
-        qs = 1 / (1 + (a_s / (r**1/2))) #donde r = al radio empalme
+    #Calculo de sensibilidad de entalla para esfuerzos flectores y axiales
+    Su_values = [ 42.184, 70.307, 105.460, 140.614]
+    nearest_value = None
+    nearest_position = None
+
+    for i, value in enumerate(Su_values):
+
+        if nearest_value is None or abs(value - Su) < abs(nearest_value - Su):
+            nearest_value = value
+            nearest_position = i
+
+        elif abs(value - Su) == abs(nearest_value - Su) and value > nearest_value:
+            nearest_value = value
+            nearest_position = i
+
+    q_1 = [0.58, 0.65, 0.70, 0.72, 0.75, 0.78, 0.79, 0.80]
+    q_2 = [0.69, 0.75, 0.80, 0.82, 0.85, 0.86, 0.87, 0.88]
+    q_3 = [0.80, 0.84, 0.89, 0.90, 0.92, 0.94, 0.95, 0.96]
+    q_4 = [0.89, 0.91, 0.95, 0.96, 0.97, 0.98, 0.99, 0.99]
+
+    if nearest_position == 0:
+        q_list = q_1
+
+    elif nearest_position == 1:
+        q_list = q_2
+
+    elif nearest_position == 2:
+        q_list = q_3
+    
+    elif nearest_position == 3:
+        q_list = q_4
     
     else:
-        q = 1
-        qs = 1
+        print("Error al encontrar la posicion q_list")
+
+    notch_radius = [0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16]
+
+    q = np.interp(r, notch_radius, q_list)
+
+    #Calculo de sensibilidad de entalla para esfuerzos torsores
+    nearest_value = None
+    nearest_position = None
+
+    for i, value in enumerate(Su_values):
+
+        if nearest_value is None or abs(value - Su) < abs(nearest_value - Su):
+            nearest_value = value
+            nearest_position = i
+
+        elif abs(value - Su) == abs(nearest_value - Su) and value > nearest_value:
+            nearest_value = value
+            nearest_position = i
+
+    qs_1 = [0.61, 0.69, 0.74, 0.78, 0.80, 0.81, 0.82, 0.83]
+    qs_2 = [0.70, 0.80, 0.82, 0.84, 0.87, 0.88, 0.89, 0.90]
+    qs_3 = [0.82, 0.88, 0.90, 0.91, 0.92, 0.94, 0.95, 0.96]
+    qs_4 = [0.89, 0.91, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99]
+
+    if nearest_position == 0:
+        qs_list = qs_1
+
+    elif nearest_position == 1:
+        qs_list = qs_2
+
+    elif nearest_position == 2:
+        qs_list = qs_3
+    
+    elif nearest_position == 3:
+        qs_list = qs_4
+    
+    else:
+        print("Error al encontrar la posicion q_list")
+
+    notch_radius = [0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16]
+
+    qs = np.interp(r, notch_radius, qs_list)
+     
 
     return q, qs
 

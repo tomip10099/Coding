@@ -52,8 +52,8 @@ material_name = "Ejemplo"
 
 
 Su = materialesSAE[material_name]["Su"] #Tension ultima
-Sy = materialesSAE[material_name]["Sy"] #Tension ultima
-Se = Fatiga.tension_fatiga(Su, True, d)
+Sy = materialesSAE[material_name]["Sy"] #Tension de fluencia
+Se = Fatiga.tension_fatiga(Su, True, d) #Tension limite de fatiga
 #####################################################################################################
 
 #Concentracion de tensiones
@@ -62,6 +62,7 @@ _, kts = Concentracion_Tensiones.factores_teoricos(1, D, d, r) #Factor de concen
 
 q, _ = Concentracion_Tensiones.sensibilidad_entalla(r, Su) #Sensibilidad a la entalla a flexion/axial
 _, qs = Concentracion_Tensiones.sensibilidad_entalla(r, Su) #Sensibilidad a la entall a torsion
+
 
 kf, _ = Concentracion_Tensiones.factor_concentracion_tensiones(kt, kts, q, qs)  #Factor de concentracion de tensiones a flexion
 _ , kfs = Concentracion_Tensiones.factor_concentracion_tensiones(kt, kts, q, qs) #Factor de concentracion de tensiones a torsion
@@ -86,32 +87,54 @@ sm = ((smf_g**2) + (3 * (tmt_g**2)))**(1/2) #Sigma medio
 
 ###########################################################################################################
 
+#Para utilizar las ecuaciones directamente del libro se deben transformar los valores de kg/mm2 a Kpsi, a cada variable anteriormente calculado se lo redefine agregando un 2
+d2 = d / 25.4 
+Se2 = Se * 1.42334 * 1000
+Su2 = Su * 1.42334 * 1000
+Sy2 = Sy * 1.42334 * 1000
+Mm2 = Mm * 55.9974
+Ma2 = Ma * 55.9974
+Tm2 = Tm * 55.9974
+Ta2 = Ta * 55.9974
 
 #Metodo de calculo por Goodman
 
-d_goodman = (((16*n) / np.pi) * ((1/Se) * (((4 * ((kf * Ma)**2)) + (3 * ((kfs * Ta)**2)))**(1/2)) + (1/Su) * (((4 * ((kf * Mm)**2)) + (3 * ((kfs * Tm)**2)))**1/2)))**(1/3)  #[mm]
+d_goodman = 25.4 * ((((16*n) / np.pi) * ((1/Se2) * (((4 * ((kf * Ma2)**2)) + (3 * ((kfs * Ta2)**2)))**(1/2)) + (1/Su2) * (((4 * ((kf * Mm2)**2)) + (3 * ((kfs * Tm2)**2)))**(1/2))))**(1/3))  #[mm]
+n_goodman = 1 / (((16/(np.pi * (d2**3))) * (((1/Se2) * (((4 * ((kf * Ma2)**2)) + (3 * ((kfs * Ta2)**(1/2))))**(1/2))) + ((1 / Su2) * (((4 * ((kf * Mm2)**2))+(3 * ((kfs * Tm2)**2)))**(1/2)))))**(1/3))
 
 #Metodo de calculo por Gerber
-A = ((4 * ((kf*Ma)**2)) + (3 * ((kfs * Ta)**2)))**1/2
-B = ((4 * ((kf*Mm)**2)) + (3 * ((kfs * Tm)**2)))**1/2
+A = ((4 * ((kf*Ma2)**2)) + (3 * ((kfs * Ta2)**2)))**(1/2)
+B = ((4 * ((kf*Mm2)**2)) + (3 * ((kfs * Tm2)**2)))**(1/2)
 
-d_gerber = (((8 * n * A) / (np.pi * Se)) * (1 + ((1 + (((2 * B * Se) / (A * Su))**2))**1/2)))**1/3 # [mm]
+d_gerber = 25.4 * ((((8 * n * A) / (np.pi * Se2)) * (1 + ((1 + (((2 * B * Se2) / (A * Su2))**2))**(1/2))))**(1/3)) # [mm]
+n_gerber = 1 / (((8 * A) / (np.pi * (d2**3) * Se2)) * (1 + ((1 + (((2 * B * Se2)/(A * Su2))**2))**(1/2))))
+
 
 #Metodo de calculo ASME-Elliptic
 
-d_ASME = (((16*n)/np.pi) * (((4*(((kf*Ma) / Se)**2)) + (3 * (((kfs * Ta) / Se)**2)) + (4 * (((kf*Mm) / Sy)**2)) + (3 * (((kfs * Tm) / Sy)**2)))**1/2))**1/3 # [mm]
+d_ASME = 25.4 * ((((16*n)/np.pi) * (((4*(((kf*Ma2) / Se2)**2)) + (3 * (((kfs * Ta2) / Se2)**2)) + (4 * (((kf*Mm2) / Sy2)**2)) + (3 * (((kfs * Tm2) / Sy2)**2)))**(1/2)))**(1/3)) # [mm]
+n_ASME = 1 / ((16 / (np.pi * (d2**3))) * (((4 * (((kf*Ma2) / Se2)**2)) + (3 * (((kfs * Ta2) / Se2)**2)) + (4 * (((kf * Mm2) / Sy2)**2)) + (3 * (((kfs * Tm2) / Sy2)**2)))**(1/2)))
 
 #Metodo de calculo Soderberg
 
-d_soderberg = ((16 * n / np.pi) * (((1/Se) * (((4 * ((kf*Ma)**2)) + (3 * ((kfs * Ta)**2)))**1/2)) + ((1/Sy) * (((4 * ((kf*Mm)**2)) + (3 * ((kfs * Tm)**2)))**1/2))))**1/3 # [mm]
+d_soderberg = 25.4 * (((16 * n / np.pi) * (((1/Se2) * (((4 * ((kf*Ma2)**2)) + (3 * ((kfs * Ta2)**2)))**(1/2))) + ((1/Sy2) * (((4 * ((kf*Mm2)**2)) + (3 * ((kfs * Tm2)**2)))**(1/2)))))**(1/3)) # [mm]
+n_soderberg =  1 / ((16 / (np.pi * (d2**3))) * (((1/Se2) * (((4 * ((kf*Ma2)**2)) + (3 * ((kfs * Ta2)**2)))**(1/2))) + ((1/Sy2) * (((4 * ((kf*Mm2)**2)) + (3 * ((kfs * Tm2)**2)))**(1/2)))))
 
 print("Calculo de ejes")
 print("Parametros del problema: \n","Diametro Menor: ", d, " mm \n", "Diametro Mayor: ", D, " mm \n","Radio de empalme: ", r, " mm\n" )
-print("Caracteristicas del material: \n", "Su: ", Su, " kg/mm2\n", "Sy: ", Sy, " kg/mm2\n", "Se: ", round(Se, 3), " kg/mm2\n")
+print("Caracteristicas del material: \n", "Su: ", Su, round(Su2,3), " kg/mm2(kpsi)\n", "Sy: ", Sy, round(Sy2,3), " kg/mm2(kpsi)\n", "Se: ", round(Se, 3), round(Se2, 3), " kg/mm2(kpsi)\n", sep=" ")
 print("Cocnentracion de tensiones: \n", "kt y kts: ", kt, kts, sep=" ")
 print("\n q y qs: ", round(q, 3), round(qs, 3), sep=" ")
 print("\n kf y kfs: ", round(kf, 3), round(kfs, 3), sep=" ")
+
 print("\n Diametro minimo por Goodman: ", round(d_goodman, 3))
+print("\n Coeficiente de seguridad por Goodman: ", round(n_goodman, 2))
+
 print("\n Diametro minimo por Gerber: ", round(d_gerber, 3))
+print("\n Coeficiente de seguridad por Gerber: ", round(n_gerber, 2))
+
 print("\n Diametro minimo por ASME: ", round(d_ASME, 3))
-print("\n Diametro minimo por Soderber: ", round(d_soderberg,))
+print("\n Coeficiente de seguridad por ASME: ", round(n_ASME, 2))
+
+print("\n Diametro minimo por Soderber: ", round(d_soderberg, 3))
+print("\n Coeficiente de seguridad por Soderberg: ", round(n_soderberg, 2))
