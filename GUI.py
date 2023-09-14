@@ -1,34 +1,27 @@
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout
 
-class NumberBox(QWidget):
-    def __init__(self):
-        super().__init__()
+def boton():
+    print("Boton presionado")
 
-        # Create a label to display the number
-        self.number_label = QLabel('0')
-        self.number_label.setAlignment(0x0082)  # Align center
+def window():
 
-        # Set up the layout
-        layout = QVBoxLayout()
-        layout.addWidget(self.number_label)
-        self.setLayout(layout)
-
-        self.setWindowTitle('Number Box')
-        self.setGeometry(100, 100, 200, 100)  # Set window dimensions
-
-    def set_number(self, number):
-        self.number_label.setText(str(number))
-
-def main():
     app = QApplication(sys.argv)
+    win = QMainWindow()
 
-    window = NumberBox()
-    window.set_number(42)  # Set the number to display
+    win.setGeometry(800, 400, 300, 300)
+    win.setWindowTitle("Test")
 
-    window.show()
+    label = QtWidgets.QLabel(win)
+    label.setText("label")
+    label.move(50,50)
 
+    b1 = QtWidgets.QPushButton(win)
+    b1.setText("Click")
+    b1.clicked.connect(boton)
+
+    win.show()
     sys.exit(app.exec_())
 
-if __name__ == '__main__':
-    main()
+window()
