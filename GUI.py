@@ -5,11 +5,14 @@ import sys
 class MyWindow(QMainWindow):
 
     def __init__(self):
+
         super(MyWindow, self).__init__()
+        self.initUI()
+
         self.setGeometry(800, 400, 300, 300)
         self.setWindowTitle("Test")
 
-    def initUi(self):
+    def initUI(self):
         self.label = QtWidgets.QLabel(self)
         self.label.setText("label")
         self.label.move(150,150)
@@ -18,9 +21,14 @@ class MyWindow(QMainWindow):
         self.b1.setText("Click")
         self.b1.clicked.connect(self.boton)
 
-
     def boton(self):
         self.label.setText("Boton presionado")
+        self.update()
+
+    def update(self):
+        self.label.adjustSize()
+
+
 
 def window():
 
