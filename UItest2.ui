@@ -14,49 +14,126 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="Foto1">
+   <widget class="QComboBox" name="comboBox_x">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>70</y>
-      <width>511</width>
-      <height>371</height>
+      <x>70</x>
+      <y>170</y>
+      <width>321</width>
+      <height>141</height>
      </rect>
     </property>
-    <property name="text">
-     <string/>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
     </property>
-    <property name="pixmap">
-     <pixmap>../../Pictures/Wallpappers/6ebb785b-15f6-4d2e-989a-7ece5fc4ff5a.jpg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
+    <item>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1</string>
+     </property>
+    </item>
    </widget>
-   <widget class="QPushButton" name="FerrariButton">
+   <widget class="QComboBox" name="comboBox_y">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>540</y>
-      <width>141</width>
+      <x>540</x>
+      <y>170</y>
+      <width>321</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
+    </property>
+    <item>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPushButton" name="summit_button">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>380</y>
+      <width>461</width>
       <height>61</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>22</pointsize>
+     </font>
+    </property>
     <property name="text">
-     <string>Ferrari</string>
+     <string>Summit</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="SpaceXbutton">
+   <widget class="QLabel" name="result_label">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>320</x>
       <y>540</y>
-      <width>151</width>
+      <width>291</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>22</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>X XOR Y =</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>100</y>
+      <width>111</width>
       <height>61</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>36</pointsize>
+     </font>
+    </property>
     <property name="text">
-     <string>Space X</string>
+     <string>X</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>100</y>
+      <width>111</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>36</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Y</string>
     </property>
    </widget>
   </widget>
