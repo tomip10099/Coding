@@ -1,0 +1,18 @@
+Abrir nuevas pestañas con botones:
+
+    dentro de la clase "class Ui_MainWindow(object):" 
+        
+        dentro de setupUI():
+
+            self.Calculo_ejes_pushButton.clicked.connect(lambda: self.insertTab("Calculo de ejes")) #Esto vincula el boton en main de calculo de ejes y abre una pestaña nuevas
+
+    
+        def insertTab(self, title): #Esta es la funcion que crea nuevas pestañas
+
+            self.tabWidget.addTab(QtWidgets.QWidget(),str(title))
+
+        #Eliminar pestañas
+        tabs = self.tabWidget
+        tabs.tabCloseRequested.connect(lambda index: tabs.removeTab(index))
+
+    
