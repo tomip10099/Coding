@@ -668,7 +668,7 @@ class Ui_MainWindow(object):
         self.Coeficiente_seguridad_lineEdit.setText(_translate("MainWindow", "1"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Calculo_ejes_tab), _translate("MainWindow", str(title)))
 
-
+        return True
 
 
 if __name__ == "__main__":
