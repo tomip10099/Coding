@@ -11,6 +11,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
+
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
 
@@ -142,9 +144,9 @@ class Ui_MainWindow(object):
         self.Longitud_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.Longitud_label_title.setObjectName("Longitud_label_title")
         self.Grid_geometria.addWidget(self.Longitud_label_title, 2, 0, 1, 1)
-        self.Momento_inercia_axial_input_line_edit = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        self.Momento_inercia_axial_input_line_edit.setObjectName("Momento_inercia_axial_input_line_edit")
-        self.Grid_geometria.addWidget(self.Momento_inercia_axial_input_line_edit, 4, 1, 1, 1)
+        self.Momento_inercia_axial_input_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.Momento_inercia_axial_input_lineEdit.setObjectName("Momento_inercia_axial_input_lineEdit")
+        self.Grid_geometria.addWidget(self.Momento_inercia_axial_input_lineEdit, 4, 1, 1, 1)
         self.Momento_inercia_polar_input_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
         self.Momento_inercia_polar_input_lineEdit.setObjectName("Momento_inercia_polar_input_lineEdit")
         self.Grid_geometria.addWidget(self.Momento_inercia_polar_input_lineEdit, 5, 1, 1, 1)
@@ -163,14 +165,14 @@ class Ui_MainWindow(object):
         self.Seccion_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.Seccion_label_title.setObjectName("Seccion_label_title")
         self.Grid_geometria.addWidget(self.Seccion_label_title, 0, 0, 1, 1)
-        self.Diametro_lable_title = QtWidgets.QLabel(self.gridLayoutWidget)
-        self.Diametro_lable_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.Diametro_lable_title.setObjectName("Diametro_lable_title")
-        self.Grid_geometria.addWidget(self.Diametro_lable_title, 1, 0, 1, 1)
-        self.momento_inercia_axial_lable_title = QtWidgets.QLabel(self.gridLayoutWidget)
-        self.momento_inercia_axial_lable_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.momento_inercia_axial_lable_title.setObjectName("momento_inercia_axial_lable_title")
-        self.Grid_geometria.addWidget(self.momento_inercia_axial_lable_title, 4, 0, 1, 1)
+        self.Diametro_label_title = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.Diametro_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.Diametro_label_title.setObjectName("Diametro_label_title")
+        self.Grid_geometria.addWidget(self.Diametro_label_title, 1, 0, 1, 1)
+        self.momento_inercia_axial_label_title = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.momento_inercia_axial_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter) 
+        self.momento_inercia_axial_label_title.setObjectName("momento_inercia_axial_label_title")
+        self.Grid_geometria.addWidget(self.momento_inercia_axial_label_title, 4, 0, 1, 1)
         self.velocidad_giro_input_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
         self.velocidad_giro_input_lineEdit.setObjectName("velocidad_giro_input_lineEdit")
         self.Grid_geometria.addWidget(self.velocidad_giro_input_lineEdit, 3, 1, 1, 1)
@@ -179,10 +181,10 @@ class Ui_MainWindow(object):
         self.unidades_momento_inercia_polar_comboBox.addItem("")
         self.unidades_momento_inercia_polar_comboBox.addItem("")
         self.Grid_geometria.addWidget(self.unidades_momento_inercia_polar_comboBox, 5, 2, 1, 1)
-        self.velocidad_giro_lable_title = QtWidgets.QLabel(self.gridLayoutWidget)
-        self.velocidad_giro_lable_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.velocidad_giro_lable_title.setObjectName("velocidad_giro_lable_title")
-        self.Grid_geometria.addWidget(self.velocidad_giro_lable_title, 3, 0, 1, 1)
+        self.velocidad_giro_label_title = QtWidgets.QLabel(self.gridLayoutWidget) 
+        self.velocidad_giro_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.velocidad_giro_label_title.setObjectName("velocidad_giro_label_title")
+        self.Grid_geometria.addWidget(self.velocidad_giro_label_title, 3, 0, 1, 1)
         self.unidades_longitud_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget)
         self.unidades_longitud_comboBox.setObjectName("unidades_longitud_comboBox")
         self.unidades_longitud_comboBox.addItem("")
@@ -545,8 +547,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.coeficiente_seguridad_checkBox)
         self.Coeficiente_seguridad_lineEdit = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.Coeficiente_seguridad_lineEdit.setObjectName("Coeficiente_seguridad_lineEdit")
+        self.Coeficiente_seguridad_lineEdit.setValidator(QtGui.QIntValidator(0, 100))
         self.horizontalLayout_2.addWidget(self.Coeficiente_seguridad_lineEdit)
+
         self.tabWidget.addTab(self.Calculo_ejes_tab, "")
+        self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
 
         _translate = QtCore.QCoreApplication.translate
         self.Caso_comboBox.setItemText(0, _translate("MainWindow", "Caso estatico"))
@@ -561,11 +566,11 @@ class Ui_MainWindow(object):
         self.unidades_momento_inercia_axial_comboBox.setItemText(0, _translate("MainWindow", "mm4"))
         self.unidades_momento_inercia_axial_comboBox.setItemText(1, _translate("MainWindow", "in4"))
         self.Seccion_label_title.setText(_translate("MainWindow", "Seccion"))
-        self.Diametro_lable_title.setText(_translate("MainWindow", "Diametro"))
-        self.momento_inercia_axial_lable_title.setText(_translate("MainWindow", "Momento de inercia axial [I]"))
+        self.Diametro_label_title.setText(_translate("MainWindow", "Diametro"))
+        self.momento_inercia_axial_label_title.setText(_translate("MainWindow", "Momento de inercia axial [I]"))
         self.unidades_momento_inercia_polar_comboBox.setItemText(0, _translate("MainWindow", "mm4"))
         self.unidades_momento_inercia_polar_comboBox.setItemText(1, _translate("MainWindow", "in4"))
-        self.velocidad_giro_lable_title.setText(_translate("MainWindow", "Velocidad de giro"))
+        self.velocidad_giro_label_title.setText(_translate("MainWindow", "Velocidad de giro"))
         self.unidades_longitud_comboBox.setItemText(0, _translate("MainWindow", "mm"))
         self.Momento_inercia_polar_label_title.setText(_translate("MainWindow", "Momento de inercia polar[J]"))
         self.seccion_comboBox.setItemText(0, _translate("MainWindow", "Circular"))
