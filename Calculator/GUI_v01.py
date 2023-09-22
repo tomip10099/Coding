@@ -23,12 +23,14 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
+        #Programacion del Frame Principal
         self.Main_frame = QtWidgets.QFrame(self.centralwidget)
         self.Main_frame.setGeometry(QtCore.QRect(0, 0, 1400, 850))
         self.Main_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Main_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Main_frame.setObjectName("Main_frame")
 
+        #Programacion de Widget de tabs
         self.tabWidget = QtWidgets.QTabWidget(self.Main_frame)
         self.tabWidget.setGeometry(QtCore.QRect(0, 0, 1400, 850))
         self.tabWidget.setIconSize(QtCore.QSize(16, 16))
@@ -36,53 +38,59 @@ class Ui_MainWindow(object):
         self.tabWidget.setMovable(True)
         self.tabWidget.setTabBarAutoHide(False)
         self.tabWidget.setObjectName("tabWidget")
-        
+
+        #########################################################################################
+        #Main tab
         self.Main_tab = QtWidgets.QWidget()
         self.Main_tab.setObjectName("Main_tab")
+        self.tabWidget.addTab(self.Main_tab, "")
+ 
         
+        #Boton de secciones
         self.secciones_pushButton = QtWidgets.QPushButton(self.Main_tab)
         self.secciones_pushButton.setGeometry(QtCore.QRect(690, 330, 171, 61))
         self.secciones_pushButton.setObjectName("secciones_pushButton")
 
+        #Titulo de librerias
         self.librerias_label = QtWidgets.QLabel(self.Main_tab)
         self.librerias_label.setGeometry(QtCore.QRect(700, 180, 141, 51))
         self.librerias_label.setObjectName("librerias_label")
 
+        #Boton de Materiales
         self.materiales_pushButton = QtWidgets.QPushButton(self.Main_tab)
         self.materiales_pushButton.setGeometry(QtCore.QRect(690, 260, 171, 61))
         self.materiales_pushButton.setObjectName("materiales_pushButton")
-
+        
+        #Boton de Fatiga
         self.fatiga_pushButton = QtWidgets.QPushButton(self.Main_tab)
         self.fatiga_pushButton.setGeometry(QtCore.QRect(130, 340, 171, 61))
         self.fatiga_pushButton.setObjectName("fatiga_pushButton")
 
+        #Boton de Calculo de ejes
         self.Calculo_ejes_pushButton = QtWidgets.QPushButton(self.Main_tab)
         self.Calculo_ejes_pushButton.setGeometry(QtCore.QRect(130, 260, 171, 61))
         self.Calculo_ejes_pushButton.setObjectName("Calculo_ejes_pushButton")
 
+        #Boton de Concentracion de tensiones
         self.concentracion_tensiones_pushButton = QtWidgets.QPushButton(self.Main_tab)
         self.concentracion_tensiones_pushButton.setGeometry(QtCore.QRect(130, 420, 171, 61))
         self.concentracion_tensiones_pushButton.setObjectName("concentracion_tensiones_pushButton")
 
+        #Titulo de Modulos de calculo
         self.modulos_calculo_label = QtWidgets.QLabel(self.Main_tab)
         self.modulos_calculo_label.setGeometry(QtCore.QRect(140, 180, 141, 51))
         self.modulos_calculo_label.setObjectName("modulos_calculo_label")
 
-        self.tabWidget.addTab(self.Main_tab, "")
-        MainWindow.setCentralWidget(self.centralwidget)
-
+        #Barra de menus
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1274, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
 
+        #Barra de estado
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-
-        self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
         #Eliminar pestañas
         tabs = self.tabWidget
@@ -91,7 +99,13 @@ class Ui_MainWindow(object):
         #Crear pestaña de calculo de ejes
         self.Calculo_ejes_pushButton.clicked.connect(lambda: self.insertTab_ejes("Calculo de ejes"))
 
+        #Se corre la funcion (Tiene que ir al ultimo de la funcion)
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.retranslateUi(MainWindow)
+        self.tabWidget.setCurrentIndex(0)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    #Funcion de Retranslate de Main Window
     def retranslateUi(self, MainWindow):
 
         _translate = QtCore.QCoreApplication.translate
@@ -106,24 +120,31 @@ class Ui_MainWindow(object):
         self.modulos_calculo_label.setText(_translate("MainWindow", "Modulos de calculo"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Main_tab), _translate("MainWindow", "Menu"))
     
-    
+    #Funcion para insertar Pestaña de calculo de ejes
     def insertTab_ejes(self, title):
-
+        
+        #Se crea la pestaña
         self.Calculo_ejes_tab = QtWidgets.QWidget()
         self.Calculo_ejes_tab.setAccessibleDescription("")
         self.Calculo_ejes_tab.setObjectName("Calculo_ejes_tab")
 
+        #Combo Box que seleccion el tipo de caso a resolver
         self.Caso_comboBox = QtWidgets.QComboBox(self.Calculo_ejes_tab)
         self.Caso_comboBox.setGeometry(QtCore.QRect(290, 20, 241, 41))
         self.Caso_comboBox.setObjectName("Caso_comboBox")
         self.Caso_comboBox.addItem("")
         self.Caso_comboBox.addItem("")
         self.Caso_comboBox.addItem("")
-        
+
+        ###########################################################################
+
+        #Se crea el group Box de inputs del problema
         self.groupBox_Inputs = QtWidgets.QGroupBox(self.Calculo_ejes_tab)
         self.groupBox_Inputs.setEnabled(True)
         self.groupBox_Inputs.setGeometry(QtCore.QRect(20, 70, 1201, 261))
         self.groupBox_Inputs.setObjectName("groupBox_Inputs")
+
+        #Se crea el primer gridLayout de datos geometricos
         self.gridLayoutWidget = QtWidgets.QWidget(self.groupBox_Inputs)
         self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 30, 311, 221))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
@@ -133,69 +154,16 @@ class Ui_MainWindow(object):
         self.Grid_geometria.setHorizontalSpacing(7)
         self.Grid_geometria.setVerticalSpacing(4)
         self.Grid_geometria.setObjectName("Grid_geometria")
-        self.unidades_diametro_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget)
-        self.unidades_diametro_comboBox.setObjectName("unidades_diametro_comboBox")
-        self.unidades_diametro_comboBox.addItem("")
-        self.Grid_geometria.addWidget(self.unidades_diametro_comboBox, 1, 2, 1, 1)
-        self.Diametro_input_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        self.Diametro_input_lineEdit.setObjectName("Diametro_input_lineEdit")
-        self.Grid_geometria.addWidget(self.Diametro_input_lineEdit, 1, 1, 1, 1)
-        self.Longitud_label_title = QtWidgets.QLabel(self.gridLayoutWidget)
-        self.Longitud_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.Longitud_label_title.setObjectName("Longitud_label_title")
-        self.Grid_geometria.addWidget(self.Longitud_label_title, 2, 0, 1, 1)
-        self.Momento_inercia_axial_input_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        self.Momento_inercia_axial_input_lineEdit.setObjectName("Momento_inercia_axial_input_lineEdit")
-        self.Grid_geometria.addWidget(self.Momento_inercia_axial_input_lineEdit, 4, 1, 1, 1)
-        self.Momento_inercia_polar_input_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        self.Momento_inercia_polar_input_lineEdit.setObjectName("Momento_inercia_polar_input_lineEdit")
-        self.Grid_geometria.addWidget(self.Momento_inercia_polar_input_lineEdit, 5, 1, 1, 1)
-        self.unidades_velocidad_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget)
-        self.unidades_velocidad_comboBox.setObjectName("unidades_velocidad_comboBox")
-        self.unidades_velocidad_comboBox.addItem("")
-        self.unidades_velocidad_comboBox.addItem("")
-        self.unidades_velocidad_comboBox.addItem("")
-        self.Grid_geometria.addWidget(self.unidades_velocidad_comboBox, 3, 2, 1, 1)
-        self.unidades_momento_inercia_axial_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget)
-        self.unidades_momento_inercia_axial_comboBox.setObjectName("unidades_momento_inercia_axial_comboBox")
-        self.unidades_momento_inercia_axial_comboBox.addItem("")
-        self.unidades_momento_inercia_axial_comboBox.addItem("")
-        self.Grid_geometria.addWidget(self.unidades_momento_inercia_axial_comboBox, 4, 2, 1, 1)
+
+        #####################################
+        #Se crea la label de seccion
         self.Seccion_label_title = QtWidgets.QLabel(self.gridLayoutWidget)
         self.Seccion_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.Seccion_label_title.setObjectName("Seccion_label_title")
+
         self.Grid_geometria.addWidget(self.Seccion_label_title, 0, 0, 1, 1)
-        self.Diametro_label_title = QtWidgets.QLabel(self.gridLayoutWidget)
-        self.Diametro_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.Diametro_label_title.setObjectName("Diametro_label_title")
-        self.Grid_geometria.addWidget(self.Diametro_label_title, 1, 0, 1, 1)
-        self.momento_inercia_axial_label_title = QtWidgets.QLabel(self.gridLayoutWidget)
-        self.momento_inercia_axial_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter) 
-        self.momento_inercia_axial_label_title.setObjectName("momento_inercia_axial_label_title")
-        self.Grid_geometria.addWidget(self.momento_inercia_axial_label_title, 4, 0, 1, 1)
-        self.velocidad_giro_input_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        self.velocidad_giro_input_lineEdit.setObjectName("velocidad_giro_input_lineEdit")
-        self.Grid_geometria.addWidget(self.velocidad_giro_input_lineEdit, 3, 1, 1, 1)
-        self.unidades_momento_inercia_polar_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget)
-        self.unidades_momento_inercia_polar_comboBox.setObjectName("unidades_momento_inercia_polar_comboBox")
-        self.unidades_momento_inercia_polar_comboBox.addItem("")
-        self.unidades_momento_inercia_polar_comboBox.addItem("")
-        self.Grid_geometria.addWidget(self.unidades_momento_inercia_polar_comboBox, 5, 2, 1, 1)
-        self.velocidad_giro_label_title = QtWidgets.QLabel(self.gridLayoutWidget) 
-        self.velocidad_giro_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.velocidad_giro_label_title.setObjectName("velocidad_giro_label_title")
-        self.Grid_geometria.addWidget(self.velocidad_giro_label_title, 3, 0, 1, 1)
-        self.unidades_longitud_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget)
-        self.unidades_longitud_comboBox.setObjectName("unidades_longitud_comboBox")
-        self.unidades_longitud_comboBox.addItem("")
-        self.Grid_geometria.addWidget(self.unidades_longitud_comboBox, 2, 2, 1, 1)
-        self.Momento_inercia_polar_label_title = QtWidgets.QLabel(self.gridLayoutWidget)
-        self.Momento_inercia_polar_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.Momento_inercia_polar_label_title.setObjectName("Momento_inercia_polar_label_title")
-        self.Grid_geometria.addWidget(self.Momento_inercia_polar_label_title, 5, 0, 1, 1)
-        self.Longitud_input_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        self.Longitud_input_lineEdit.setObjectName("Longitud_input_lineEdit")
-        self.Grid_geometria.addWidget(self.Longitud_input_lineEdit, 2, 1, 1, 1)
+
+        #Se crea la comboBox de secciones
         self.seccion_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget)
         self.seccion_comboBox.setObjectName("seccion_comboBox")
         self.seccion_comboBox.addItem("")
@@ -205,200 +173,432 @@ class Ui_MainWindow(object):
         self.seccion_comboBox.addItem("")
         self.seccion_comboBox.addItem("")
         self.seccion_comboBox.addItem("")
+
         self.Grid_geometria.addWidget(self.seccion_comboBox, 0, 1, 1, 2)
+        #####################################
+
+        #Se crea la label de diametro
+        self.Diametro_label_title = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.Diametro_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.Diametro_label_title.setObjectName("Diametro_label_title")
+
+        self.Grid_geometria.addWidget(self.Diametro_label_title, 1, 0, 1, 1)
+
+        #Se crea el lineEdit para valor de diametro
+        self.Diametro_input_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.Diametro_input_lineEdit.setObjectName("Diametro_input_lineEdit")
+
+        self.Grid_geometria.addWidget(self.Diametro_input_lineEdit, 1, 1, 1, 1)
+
+        #Se crea el comboBox de unidades para el diametro
+        self.unidades_diametro_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget)
+        self.unidades_diametro_comboBox.setObjectName("unidades_diametro_comboBox")
+        self.unidades_diametro_comboBox.addItem("")
+
+        self.Grid_geometria.addWidget(self.unidades_diametro_comboBox, 1, 2, 1, 1)
+        #####################################
+
+        #Se crea el label de Longitud
+        self.Longitud_label_title = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.Longitud_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.Longitud_label_title.setObjectName("Longitud_label_title")
+
+        self.Grid_geometria.addWidget(self.Longitud_label_title, 2, 0, 1, 1)
+
+        #Se crea el lineEdit del valor de longitud
+        self.Longitud_input_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.Longitud_input_lineEdit.setObjectName("Longitud_input_lineEdit")
+
+        self.Grid_geometria.addWidget(self.Longitud_input_lineEdit, 2, 1, 1, 1)
+
+        #Se crea el comboBox de unidades para la longitud
+        self.unidades_longitud_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget)
+        self.unidades_longitud_comboBox.setObjectName("unidades_longitud_comboBox")
+        self.unidades_longitud_comboBox.addItem("")
+
+        self.Grid_geometria.addWidget(self.unidades_longitud_comboBox, 2, 2, 1, 1)
+        ######################################
+
+        #Se crea el label de velocidad de giro
+        self.velocidad_giro_label_title = QtWidgets.QLabel(self.gridLayoutWidget) 
+        self.velocidad_giro_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.velocidad_giro_label_title.setObjectName("velocidad_giro_label_title")
+
+        self.Grid_geometria.addWidget(self.velocidad_giro_label_title, 3, 0, 1, 1)
+
+        #Se crea el lineEdit de velocidad de giro
+        self.velocidad_giro_input_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.velocidad_giro_input_lineEdit.setObjectName("velocidad_giro_input_lineEdit")
+
+        self.Grid_geometria.addWidget(self.velocidad_giro_input_lineEdit, 3, 1, 1, 1)
+
+        #Se crea el comboBox de unidades de velocidad de giro
+        self.unidades_velocidad_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget)
+        self.unidades_velocidad_comboBox.setObjectName("unidades_velocidad_comboBox")
+        self.unidades_velocidad_comboBox.addItem("")
+        self.unidades_velocidad_comboBox.addItem("")
+        self.unidades_velocidad_comboBox.addItem("")
+
+        self.Grid_geometria.addWidget(self.unidades_velocidad_comboBox, 3, 2, 1, 1)
+        ######################################
+        
+        #Se crea la label de Momento de inercia axial
+        self.momento_inercia_axial_label_title = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.momento_inercia_axial_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter) 
+        self.momento_inercia_axial_label_title.setObjectName("momento_inercia_axial_label_title")
+
+        self.Grid_geometria.addWidget(self.momento_inercia_axial_label_title, 4, 0, 1, 1)
+
+        #Se crea la lineEdit de momento de inercia axial
+        self.Momento_inercia_axial_input_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.Momento_inercia_axial_input_lineEdit.setObjectName("Momento_inercia_axial_input_lineEdit")
+
+        self.Grid_geometria.addWidget(self.Momento_inercia_axial_input_lineEdit, 4, 1, 1, 1)
+
+        #Se crea el comboBox de unidades de momento de inercia axial
+        self.unidades_momento_inercia_axial_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget)
+        self.unidades_momento_inercia_axial_comboBox.setObjectName("unidades_momento_inercia_axial_comboBox")
+        self.unidades_momento_inercia_axial_comboBox.addItem("")
+        self.unidades_momento_inercia_axial_comboBox.addItem("")
+
+        self.Grid_geometria.addWidget(self.unidades_momento_inercia_axial_comboBox, 4, 2, 1, 1)
+        #########################################
+
+        #Se crea la label de momento de inercia polar
+        self.Momento_inercia_polar_label_title = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.Momento_inercia_polar_label_title.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.Momento_inercia_polar_label_title.setObjectName("Momento_inercia_polar_label_title")
+
+        self.Grid_geometria.addWidget(self.Momento_inercia_polar_label_title, 5, 0, 1, 1)
+
+        #Se crea la lineEdit demomento de inercia polar
+        self.Momento_inercia_polar_input_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.Momento_inercia_polar_input_lineEdit.setObjectName("Momento_inercia_polar_input_lineEdit")
+
+        self.Grid_geometria.addWidget(self.Momento_inercia_polar_input_lineEdit, 5, 1, 1, 1)
+
+        #Se crea el comboBox de unidades del momento de inercia polar
+        self.unidades_momento_inercia_polar_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget)
+        self.unidades_momento_inercia_polar_comboBox.setObjectName("unidades_momento_inercia_polar_comboBox")
+        self.unidades_momento_inercia_polar_comboBox.addItem("")
+        self.unidades_momento_inercia_polar_comboBox.addItem("")
+
+        self.Grid_geometria.addWidget(self.unidades_momento_inercia_polar_comboBox, 5, 2, 1, 1)
+
+        ###############################################################################################################################
+
+        #Se crea la grid de esfuerzos
         self.gridLayoutWidget_3 = QtWidgets.QWidget(self.groupBox_Inputs)
         self.gridLayoutWidget_3.setGeometry(QtCore.QRect(340, 30, 291, 221))
         self.gridLayoutWidget_3.setObjectName("gridLayoutWidget_3")
         self.Grid_Esfuerzos = QtWidgets.QGridLayout(self.gridLayoutWidget_3)
         self.Grid_Esfuerzos.setContentsMargins(6, 2, 6, 2)
         self.Grid_Esfuerzos.setObjectName("Grid_Esfuerzos")
-        self.torsion_media_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_3)
-        self.torsion_media_lineEdit.setObjectName("torsion_media_lineEdit")
-        self.Grid_Esfuerzos.addWidget(self.torsion_media_lineEdit, 3, 1, 1, 1)
+        ##################################################
+
+        #Se crea la label de momento alterno de flexion
+        self.mom_alt_flex_label = QtWidgets.QLabel(self.gridLayoutWidget_3)
+        self.mom_alt_flex_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.mom_alt_flex_label.setObjectName("mom_alt_flex_label")
+
+        self.Grid_Esfuerzos.addWidget(self.mom_alt_flex_label, 0, 0, 1, 1)
+
+        #Se crea la lineEdit de momento alterno de flexion
         self.mom_alt_flex_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_3)
         self.mom_alt_flex_lineEdit.setObjectName("mom_alt_flex_lineEdit")
+
         self.Grid_Esfuerzos.addWidget(self.mom_alt_flex_lineEdit, 0, 1, 1, 1)
+
+        #Se crea el comboBox de unidades del momento alterno de flexion
         self.unidades_mom_alt_flex_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_3)
         self.unidades_mom_alt_flex_comboBox.setObjectName("unidades_mom_alt_flex_comboBox")
         self.unidades_mom_alt_flex_comboBox.addItem("")
         self.unidades_mom_alt_flex_comboBox.addItem("")
+
         self.Grid_Esfuerzos.addWidget(self.unidades_mom_alt_flex_comboBox, 0, 2, 1, 1)
-        self.esf_axial_traccion_label = QtWidgets.QLabel(self.gridLayoutWidget_3)
-        self.esf_axial_traccion_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.esf_axial_traccion_label.setObjectName("esf_axial_traccion_label")
-        self.Grid_Esfuerzos.addWidget(self.esf_axial_traccion_label, 4, 0, 1, 1)
+        ######################################################
+
+        #Se crea la label de momento medio de flexion
+        self.mom_med_flex_label = QtWidgets.QLabel(self.gridLayoutWidget_3)
+        self.mom_med_flex_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.mom_med_flex_label.setObjectName("mom_med_flex_label")
+
+        self.Grid_Esfuerzos.addWidget(self.mom_med_flex_label, 1, 0, 1, 1)
+
+        #Se crea la linEdit de momento medio de flexion
+        self.mom_med_flex_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_3)
+        self.mom_med_flex_lineEdit.setObjectName("mom_med_flex_lineEdit")
+
+        self.Grid_Esfuerzos.addWidget(self.mom_med_flex_lineEdit, 1, 1, 1, 1)
+
+        #Se crea el comboBox de unidades del momento medio de flexion
         self.unidades_mom_med_flex_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_3)
         self.unidades_mom_med_flex_comboBox.setObjectName("unidades_mom_med_flex_comboBox")
         self.unidades_mom_med_flex_comboBox.addItem("")
         self.unidades_mom_med_flex_comboBox.addItem("")
+
         self.Grid_Esfuerzos.addWidget(self.unidades_mom_med_flex_comboBox, 1, 2, 1, 1)
-        self.unidades_mom_med_tor_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_3)
-        self.unidades_mom_med_tor_comboBox.setObjectName("unidades_mom_med_tor_comboBox")
-        self.unidades_mom_med_tor_comboBox.addItem("")
-        self.unidades_mom_med_tor_comboBox.addItem("")
-        self.Grid_Esfuerzos.addWidget(self.unidades_mom_med_tor_comboBox, 3, 2, 1, 1)
-        self.mom_alt_flex_label = QtWidgets.QLabel(self.gridLayoutWidget_3)
-        self.mom_alt_flex_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.mom_alt_flex_label.setObjectName("mom_alt_flex_label")
-        self.Grid_Esfuerzos.addWidget(self.mom_alt_flex_label, 0, 0, 1, 1)
-        self.mom_med_flex_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_3)
-        self.mom_med_flex_lineEdit.setObjectName("mom_med_flex_lineEdit")
-        self.Grid_Esfuerzos.addWidget(self.mom_med_flex_lineEdit, 1, 1, 1, 1)
+        ########################################################
+
+        #Se crea la label de torsion alterna
         self.torsion_alterna_label = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.torsion_alterna_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.torsion_alterna_label.setObjectName("torsion_alterna_label")
+
         self.Grid_Esfuerzos.addWidget(self.torsion_alterna_label, 2, 0, 1, 1)
+
+        #Se crea la lineEdit de torsion alterna
         self.torsion_alt_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_3)
         self.torsion_alt_lineEdit.setObjectName("torsion_alt_lineEdit")
+
         self.Grid_Esfuerzos.addWidget(self.torsion_alt_lineEdit, 2, 1, 1, 1)
+
+        #Se crea la comboBox de unidades de tension alterna
         self.unidades_mom_alt_tor_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_3)
         self.unidades_mom_alt_tor_comboBox.setObjectName("unidades_mom_alt_tor_comboBox")
         self.unidades_mom_alt_tor_comboBox.addItem("")
         self.unidades_mom_alt_tor_comboBox.addItem("")
+
         self.Grid_Esfuerzos.addWidget(self.unidades_mom_alt_tor_comboBox, 2, 2, 1, 1)
+        ###################################################################################
+
+        #Se crea la label de torsion media
         self.torsion_media_label = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.torsion_media_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.torsion_media_label.setObjectName("torsion_media_label")
+
         self.Grid_Esfuerzos.addWidget(self.torsion_media_label, 3, 0, 1, 1)
-        self.mom_med_flex_label = QtWidgets.QLabel(self.gridLayoutWidget_3)
-        self.mom_med_flex_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.mom_med_flex_label.setObjectName("mom_med_flex_label")
-        self.Grid_Esfuerzos.addWidget(self.mom_med_flex_label, 1, 0, 1, 1)
-        self.esf_axial_comp_label = QtWidgets.QLabel(self.gridLayoutWidget_3)
-        self.esf_axial_comp_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.esf_axial_comp_label.setObjectName("esf_axial_comp_label")
-        self.Grid_Esfuerzos.addWidget(self.esf_axial_comp_label, 5, 0, 1, 1)
-        self.esf_axial_traccion_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_3)
-        self.esf_axial_traccion_lineEdit.setObjectName("esf_axial_traccion_lineEdit")
-        self.Grid_Esfuerzos.addWidget(self.esf_axial_traccion_lineEdit, 4, 1, 1, 1)
-        self.esf_axial_compresion_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_3)
-        self.esf_axial_compresion_lineEdit.setObjectName("esf_axial_compresion_lineEdit")
-        self.Grid_Esfuerzos.addWidget(self.esf_axial_compresion_lineEdit, 5, 1, 1, 1)
-        self.unidades_esf_axial_trac_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_3)
-        self.unidades_esf_axial_trac_comboBox.setObjectName("unidades_esf_axial_trac_comboBox")
-        self.unidades_esf_axial_trac_comboBox.addItem("")
-        self.unidades_esf_axial_trac_comboBox.addItem("")
-        self.Grid_Esfuerzos.addWidget(self.unidades_esf_axial_trac_comboBox, 4, 2, 1, 1)
-        self.unidades_esf_axial_compr_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_3)
-        self.unidades_esf_axial_compr_comboBox.setObjectName("unidades_esf_axial_compr_comboBox")
-        self.unidades_esf_axial_compr_comboBox.addItem("")
-        self.unidades_esf_axial_compr_comboBox.addItem("")
-        self.Grid_Esfuerzos.addWidget(self.unidades_esf_axial_compr_comboBox, 5, 2, 1, 1)
+
+        #Se crea la lineEdit de torsion media
+        self.torsion_media_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_3)
+        self.torsion_media_lineEdit.setObjectName("torsion_media_lineEdit")
+
+        self.Grid_Esfuerzos.addWidget(self.torsion_media_lineEdit, 3, 1, 1, 1)
+
+        #Se crea la comboBox de unidades de torsion media
+        self.unidades_torsion_media = QtWidgets.QComboBox(self.gridLayoutWidget_3)
+        self.unidades_torsion_media.setObjectName("unidades_torsion_media")
+        self.unidades_torsion_media.addItem("")
+        self.unidades_torsion_media.addItem("")
+
+        self.Grid_Esfuerzos.addWidget(self.unidades_torsion_media, 3, 2, 1, 1)
+        ##########################################################################################################################
+
+        #Se crea la grid de materiales
         self.gridLayoutWidget_4 = QtWidgets.QWidget(self.groupBox_Inputs)
         self.gridLayoutWidget_4.setGeometry(QtCore.QRect(650, 30, 321, 221))
         self.gridLayoutWidget_4.setObjectName("gridLayoutWidget_4")
         self.Grid_Material = QtWidgets.QGridLayout(self.gridLayoutWidget_4)
         self.Grid_Material.setContentsMargins(6, 2, 6, 2)
         self.Grid_Material.setObjectName("Grid_Material")
-        self.Norma_material_label = QtWidgets.QLabel(self.gridLayoutWidget_4)
-        self.Norma_material_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.Norma_material_label.setObjectName("Norma_material_label")
-        self.Grid_Material.addWidget(self.Norma_material_label, 1, 0, 1, 1)
-        self.Tension_ultima_label = QtWidgets.QLabel(self.gridLayoutWidget_4)
-        self.Tension_ultima_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.Tension_ultima_label.setObjectName("Tension_ultima_label")
-        self.Grid_Material.addWidget(self.Tension_ultima_label, 6, 0, 1, 1)
-        self.Unidades_tension_fluencia_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_4)
-        self.Unidades_tension_fluencia_comboBox.setObjectName("Unidades_tension_fluencia_comboBox")
-        self.Unidades_tension_fluencia_comboBox.addItem("")
-        self.Unidades_tension_fluencia_comboBox.addItem("")
-        self.Grid_Material.addWidget(self.Unidades_tension_fluencia_comboBox, 5, 2, 1, 1)
+        ##################################################
+
+        #Se crea la label del tipo de material
         self.Tipo_Material_label = QtWidgets.QLabel(self.gridLayoutWidget_4)
         self.Tipo_Material_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.Tipo_Material_label.setObjectName("Tipo_Material_label")
+
         self.Grid_Material.addWidget(self.Tipo_Material_label, 0, 0, 1, 1)
-        self.Tension_fluencia_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_4)
-        self.Tension_fluencia_lineEdit.setObjectName("Tension_fluencia_lineEdit")
-        self.Grid_Material.addWidget(self.Tension_fluencia_lineEdit, 5, 1, 1, 1)
-        self.Dureza_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_4)
-        self.Dureza_comboBox.setObjectName("Dureza_comboBox")
-        self.Dureza_comboBox.addItem("")
-        self.Dureza_comboBox.addItem("")
-        self.Grid_Material.addWidget(self.Dureza_comboBox, 3, 2, 1, 1)
-        self.Tipo_tratamiento_termico_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_4)
-        self.Tipo_tratamiento_termico_comboBox.setObjectName("Tipo_tratamiento_termico_comboBox")
-        self.Tipo_tratamiento_termico_comboBox.addItem("")
-        self.Tipo_tratamiento_termico_comboBox.addItem("")
-        self.Tipo_tratamiento_termico_comboBox.addItem("")
-        self.Grid_Material.addWidget(self.Tipo_tratamiento_termico_comboBox, 4, 1, 1, 2)
-        self.Unidades_tension_ultima_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_4)
-        self.Unidades_tension_ultima_comboBox.setObjectName("Unidades_tension_ultima_comboBox")
-        self.Unidades_tension_ultima_comboBox.addItem("")
-        self.Unidades_tension_ultima_comboBox.addItem("")
-        self.Grid_Material.addWidget(self.Unidades_tension_ultima_comboBox, 6, 2, 1, 1)
-        self.Proceso_fabricacion_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_4)
-        self.Proceso_fabricacion_comboBox.setObjectName("Proceso_fabricacion_comboBox")
-        self.Proceso_fabricacion_comboBox.addItem("")
-        self.Proceso_fabricacion_comboBox.addItem("")
-        self.Grid_Material.addWidget(self.Proceso_fabricacion_comboBox, 2, 1, 1, 2)
-        self.Dureza_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_4)
-        self.Dureza_lineEdit.setObjectName("Dureza_lineEdit")
-        self.Grid_Material.addWidget(self.Dureza_lineEdit, 3, 1, 1, 1)
-        self.Proceso_fabricacion_label = QtWidgets.QLabel(self.gridLayoutWidget_4)
-        self.Proceso_fabricacion_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.Proceso_fabricacion_label.setObjectName("Proceso_fabricacion_label")
-        self.Grid_Material.addWidget(self.Proceso_fabricacion_label, 2, 0, 1, 1)
+
+        #Se crea la comboBox del tipo de material
         self.Tipo_Material_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_4)
         self.Tipo_Material_comboBox.setObjectName("Tipo_Material_comboBox")
         self.Tipo_Material_comboBox.addItem("")
         self.Tipo_Material_comboBox.addItem("")
         self.Tipo_Material_comboBox.addItem("")
         self.Tipo_Material_comboBox.addItem("")
+
         self.Grid_Material.addWidget(self.Tipo_Material_comboBox, 0, 1, 1, 2)
-        self.Trat_termico_checkBox = QtWidgets.QCheckBox(self.gridLayoutWidget_4)
-        self.Trat_termico_checkBox.setObjectName("Trat_termico_checkBox")
-        self.Grid_Material.addWidget(self.Trat_termico_checkBox, 4, 0, 1, 1)
-        self.Tension_ultima_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_4)
-        self.Tension_ultima_lineEdit.setObjectName("Tension_ultima_lineEdit")
-        self.Grid_Material.addWidget(self.Tension_ultima_lineEdit, 6, 1, 1, 1)
+        ####################################################
+
+        #Se crea la label de la norma del material
+        self.Norma_material_label = QtWidgets.QLabel(self.gridLayoutWidget_4)
+        self.Norma_material_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.Norma_material_label.setObjectName("Norma_material_label")
+
+        self.Grid_Material.addWidget(self.Norma_material_label, 1, 0, 1, 1)
+
+        #Se crea la comboBox de la norma del material
         self.Norma_material_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_4)
         self.Norma_material_comboBox.setObjectName("Norma_material_comboBox")
         self.Norma_material_comboBox.addItem("")
         self.Norma_material_comboBox.addItem("")
+
         self.Grid_Material.addWidget(self.Norma_material_comboBox, 1, 1, 1, 2)
+        ####################################################
+
+        #Se crea label del codigo del material
+        self.Codigo_material_label = QtWidgets.QLabel(self.gridLayoutWidget_4)
+        self.Codigo_material_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.Codigo_material_label.setObjectName("Codigo_material_label")
+
+        self.Grid_Material.addWidget(self.Codigo_material_label, 2, 0, 1, 1)
+
+        #Se crea la lineEdit del codigo del material
+        self.Codigo_material_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_4)
+        self.Codigo_material_lineEdit.setObjectName("Tension_fluencia_lineEdit")
+
+        self.Grid_Material.addWidget(self.Codigo_material_lineEdit, 2, 1, 1, 1)
+        ####################################################
+
+        #Se crea la label del proceso de fabricacion
+        self.Proceso_fabricacion_label = QtWidgets.QLabel(self.gridLayoutWidget_4)
+        self.Proceso_fabricacion_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.Proceso_fabricacion_label.setObjectName("Proceso_fabricacion_label")
+
+        self.Grid_Material.addWidget(self.Proceso_fabricacion_label, 3, 0, 1, 1)
+
+        #Se crea el comboBox del proceso de fabricacion
+        self.Proceso_fabricacion_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_4)
+        self.Proceso_fabricacion_comboBox.setObjectName("Proceso_fabricacion_comboBox")
+        self.Proceso_fabricacion_comboBox.addItem("")
+        self.Proceso_fabricacion_comboBox.addItem("")
+
+        self.Grid_Material.addWidget(self.Proceso_fabricacion_comboBox, 3, 1, 1, 2)
+        #####################################################
+
+        #Se agrega checkbox de dureza personalizada
+        self.Dureza_perzonalizada_checkBox = QtWidgets.QCheckBox(self.gridLayoutWidget_4)
+        self.Dureza_perzonalizada_checkBox.setObjectName("Dureza_perzonalizada_checkBox")
+
+        self.Grid_Material.addWidget(self.Dureza_perzonalizada_checkBox, 4, 0, 1, 1)
+
+        #Se agrega lineEdit de dureza
+        self.Dureza_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_4)
+        self.Dureza_lineEdit.setObjectName("Dureza_lineEdit")
+
+        self.Grid_Material.addWidget(self.Dureza_lineEdit, 4, 1, 1, 1)
+
+        #Se agrega comboBox de dureza
+        self.Dureza_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_4)
+        self.Dureza_comboBox.setObjectName("Dureza_comboBox")
+        self.Dureza_comboBox.addItem("")
+        self.Dureza_comboBox.addItem("")
+
+        self.Grid_Material.addWidget(self.Dureza_comboBox, 4, 2, 1, 1)
+        #####################################################
+
+        #Se agrega checkBox de tratamiento termico
+        self.Trat_termico_checkBox = QtWidgets.QCheckBox(self.gridLayoutWidget_4)
+        self.Trat_termico_checkBox.setObjectName("Trat_termico_checkBox")
+
+        self.Grid_Material.addWidget(self.Trat_termico_checkBox, 5, 0, 1, 1)
+
+        #Se agrega comboBox de tipo de tratamiento termico
+        self.Tipo_tratamiento_termico_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_4)
+        self.Tipo_tratamiento_termico_comboBox.setObjectName("Tipo_tratamiento_termico_comboBox")
+        self.Tipo_tratamiento_termico_comboBox.addItem("")
+        self.Tipo_tratamiento_termico_comboBox.addItem("")
+        self.Tipo_tratamiento_termico_comboBox.addItem("")
+
+        self.Grid_Material.addWidget(self.Tipo_tratamiento_termico_comboBox, 5, 1, 1, 2)
+        #######################################################
+
+        #Se agrega label de tension de fluencia
         self.Tension_fluencia_label = QtWidgets.QLabel(self.gridLayoutWidget_4)
         self.Tension_fluencia_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.Tension_fluencia_label.setObjectName("Tension_fluencia_label")
-        self.Grid_Material.addWidget(self.Tension_fluencia_label, 5, 0, 1, 1)
-        self.Dureza_perzonalizada_checkBox = QtWidgets.QCheckBox(self.gridLayoutWidget_4)
-        self.Dureza_perzonalizada_checkBox.setObjectName("Dureza_perzonalizada_checkBox")
-        self.Grid_Material.addWidget(self.Dureza_perzonalizada_checkBox, 3, 0, 1, 1)
+
+        self.Grid_Material.addWidget(self.Tension_fluencia_label, 6, 0, 1, 1)
+
+        #Se agrega lineEdit de tension de fluencia
+        self.Tension_fluencia_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_4)
+        self.Tension_fluencia_lineEdit.setObjectName("Tension_fluencia_lineEdit")
+
+        self.Grid_Material.addWidget(self.Tension_fluencia_lineEdit, 6, 1, 1, 1)
+
+        #Se agrega comboBox de unidades de tension de fluencia
+        self.Unidades_tension_fluencia_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_4)
+        self.Unidades_tension_fluencia_comboBox.setObjectName("Unidades_tension_fluencia_comboBox")
+        self.Unidades_tension_fluencia_comboBox.addItem("")
+        self.Unidades_tension_fluencia_comboBox.addItem("")
+
+        self.Grid_Material.addWidget(self.Unidades_tension_fluencia_comboBox, 6, 2, 1, 1)
+        ##########################################################################################
+
+        #Se agrega label de tension ultima
+        self.Tension_ultima_label = QtWidgets.QLabel(self.gridLayoutWidget_4)
+        self.Tension_ultima_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.Tension_ultima_label.setObjectName("Tension_ultima_label")
+
+        self.Grid_Material.addWidget(self.Tension_ultima_label, 7, 0, 1, 1)
+
+        #Se agrega lineEdit de tension ultima
+        self.Tension_ultima_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_4)
+        self.Tension_ultima_lineEdit.setObjectName("Tension_ultima_lineEdit")
+
+        self.Grid_Material.addWidget(self.Tension_ultima_lineEdit, 7, 1, 1, 1)
+
+        #Se agrega comboBox de unidades de tension ultima
+        self.Unidades_tension_ultima_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_4)
+        self.Unidades_tension_ultima_comboBox.setObjectName("Unidades_tension_ultima_comboBox")
+        self.Unidades_tension_ultima_comboBox.addItem("")
+        self.Unidades_tension_ultima_comboBox.addItem("")
+
+        self.Grid_Material.addWidget(self.Unidades_tension_ultima_comboBox, 7, 2, 1, 1)
+        #############################################################################################
+
+        #Se crea grid de concentracion de tensiones
         self.gridLayoutWidget_2 = QtWidgets.QWidget(self.groupBox_Inputs)
         self.gridLayoutWidget_2.setGeometry(QtCore.QRect(990, 30, 201, 221))
         self.gridLayoutWidget_2.setObjectName("gridLayoutWidget_2")
         self.Grid_Concentracion_tensiones = QtWidgets.QGridLayout(self.gridLayoutWidget_2)
         self.Grid_Concentracion_tensiones.setContentsMargins(6, 2, 6, 2)
         self.Grid_Concentracion_tensiones.setObjectName("Grid_Concentracion_tensiones")
+        #################################################################
+
+        #Se agrega checkBox de concentracion de tensiones
+        self.Concentracion_tensiones_checkBox = QtWidgets.QCheckBox(self.gridLayoutWidget_2)
+        self.Concentracion_tensiones_checkBox.setObjectName("Concentracion_tensiones_checkBox")
+
+        self.Grid_Concentracion_tensiones.addWidget(self.Concentracion_tensiones_checkBox, 0, 0, 1, 2)
+        #################################################################
+
+        #Se agrega label de tipo de concentracion de tensiones
         self.tipo_concentracion_tension_label = QtWidgets.QLabel(self.gridLayoutWidget_2)
         self.tipo_concentracion_tension_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.tipo_concentracion_tension_label.setObjectName("tipo_concentracion_tension_label")
+
         self.Grid_Concentracion_tensiones.addWidget(self.tipo_concentracion_tension_label, 1, 0, 1, 1)
-        self.Factor_Kf_label = QtWidgets.QLabel(self.gridLayoutWidget_2)
-        self.Factor_Kf_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.Factor_Kf_label.setObjectName("Factor_Kf_label")
-        self.Grid_Concentracion_tensiones.addWidget(self.Factor_Kf_label, 2, 0, 1, 1)
-        self.Concentracion_tensiones_checkBox = QtWidgets.QCheckBox(self.gridLayoutWidget_2)
-        self.Concentracion_tensiones_checkBox.setObjectName("Concentracion_tensiones_checkBox")
-        self.Grid_Concentracion_tensiones.addWidget(self.Concentracion_tensiones_checkBox, 0, 0, 1, 2)
-        self.Calculo_concentracion_tension_pushButton = QtWidgets.QPushButton(self.gridLayoutWidget_2)
-        self.Calculo_concentracion_tension_pushButton.setObjectName("Calculo_concentracion_tension_pushButton")
-        self.Grid_Concentracion_tensiones.addWidget(self.Calculo_concentracion_tension_pushButton, 4, 0, 1, 2)
-        self.Factor_kf_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_2)
-        self.Factor_kf_lineEdit.setObjectName("Factor_kf_lineEdit")
-        self.Grid_Concentracion_tensiones.addWidget(self.Factor_kf_lineEdit, 2, 1, 1, 1)
-        self.Factor_kft_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_2)
-        self.Factor_kft_lineEdit.setObjectName("Factor_kft_lineEdit")
-        self.Grid_Concentracion_tensiones.addWidget(self.Factor_kft_lineEdit, 3, 1, 1, 1)
-        self.Factor_kft_label = QtWidgets.QLabel(self.gridLayoutWidget_2)
-        self.Factor_kft_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.Factor_kft_label.setObjectName("Factor_kft_label")
-        self.Grid_Concentracion_tensiones.addWidget(self.Factor_kft_label, 3, 0, 1, 1)
+
+        #Se agrega comboBox de tipo de concentracion de tensiones
         self.tipo_concentracion_tension_comboBox = QtWidgets.QComboBox(self.gridLayoutWidget_2)
         self.tipo_concentracion_tension_comboBox.setObjectName("tipo_concentracion_tension_comboBox")
         self.tipo_concentracion_tension_comboBox.addItem("")
         self.tipo_concentracion_tension_comboBox.addItem("")
         self.tipo_concentracion_tension_comboBox.addItem("")
+
         self.Grid_Concentracion_tensiones.addWidget(self.tipo_concentracion_tension_comboBox, 1, 1, 1, 1)
+        ###################################################################
+
+        #Se agrega label de factor Kf
+        self.Factor_Kf_label = QtWidgets.QLabel(self.gridLayoutWidget_2)
+        self.Factor_Kf_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.Factor_Kf_label.setObjectName("Factor_Kf_label")
+
+        self.Grid_Concentracion_tensiones.addWidget(self.Factor_Kf_label, 2, 0, 1, 1)
+
+        #Se agrega lineEdit de factor Kf 
+        self.Factor_kf_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_2)
+        self.Factor_kf_lineEdit.setObjectName("Factor_kf_lineEdit")
+
+        self.Grid_Concentracion_tensiones.addWidget(self.Factor_kf_lineEdit, 2, 1, 1, 1)
+
+        #################################################################
+
+        self.Calculo_concentracion_tension_pushButton = QtWidgets.QPushButton(self.gridLayoutWidget_2)
+        self.Calculo_concentracion_tension_pushButton.setObjectName("Calculo_concentracion_tension_pushButton")
+        self.Grid_Concentracion_tensiones.addWidget(self.Calculo_concentracion_tension_pushButton, 4, 0, 1, 2)
+
+        self.Factor_kft_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_2)
+        self.Factor_kft_lineEdit.setObjectName("Factor_kft_lineEdit")
+
+        self.Grid_Concentracion_tensiones.addWidget(self.Factor_kft_lineEdit, 3, 1, 1, 1)
+        self.Factor_kft_label = QtWidgets.QLabel(self.gridLayoutWidget_2)
+        self.Factor_kft_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.Factor_kft_label.setObjectName("Factor_kft_label")
+        self.Grid_Concentracion_tensiones.addWidget(self.Factor_kft_label, 3, 0, 1, 1)
+
         self.groupBox_Outputs = QtWidgets.QGroupBox(self.Calculo_ejes_tab)
         self.groupBox_Outputs.setGeometry(QtCore.QRect(20, 340, 1201, 391))
         self.groupBox_Outputs.setObjectName("groupBox_Outputs")
@@ -582,22 +782,16 @@ class Ui_MainWindow(object):
         self.seccion_comboBox.setItemText(6, _translate("MainWindow", "Perzonalizada"))
         self.unidades_mom_alt_flex_comboBox.setItemText(0, _translate("MainWindow", "kg.mm"))
         self.unidades_mom_alt_flex_comboBox.setItemText(1, _translate("MainWindow", "psi.in"))
-        self.esf_axial_traccion_label.setText(_translate("MainWindow", "Esfuerzo Axial Traccion"))
         self.unidades_mom_med_flex_comboBox.setItemText(0, _translate("MainWindow", "kg.mm"))
         self.unidades_mom_med_flex_comboBox.setItemText(1, _translate("MainWindow", "psi.in"))
-        self.unidades_mom_med_tor_comboBox.setItemText(0, _translate("MainWindow", "kg.mm"))
-        self.unidades_mom_med_tor_comboBox.setItemText(1, _translate("MainWindow", "psi.in"))
+        self.unidades_torsion_media.setItemText(0, _translate("MainWindow", "kg.mm"))
+        self.unidades_torsion_media.setItemText(1, _translate("MainWindow", "psi.in"))
         self.mom_alt_flex_label.setText(_translate("MainWindow", "Momento alterno de flexion"))
         self.torsion_alterna_label.setText(_translate("MainWindow", "Torsion alterna"))
         self.unidades_mom_alt_tor_comboBox.setItemText(0, _translate("MainWindow", "kg.mm"))
         self.unidades_mom_alt_tor_comboBox.setItemText(1, _translate("MainWindow", "psi.in"))
         self.torsion_media_label.setText(_translate("MainWindow", "Torsion media"))
         self.mom_med_flex_label.setText(_translate("MainWindow", "Momento medio de flexion"))
-        self.esf_axial_comp_label.setText(_translate("MainWindow", "Esfuerzo Axial Compresion"))
-        self.unidades_esf_axial_trac_comboBox.setItemText(0, _translate("MainWindow", "kg.mm"))
-        self.unidades_esf_axial_trac_comboBox.setItemText(1, _translate("MainWindow", "psi.in"))
-        self.unidades_esf_axial_compr_comboBox.setItemText(0, _translate("MainWindow", "kg.mm"))
-        self.unidades_esf_axial_compr_comboBox.setItemText(1, _translate("MainWindow", "psi.in"))
         self.Norma_material_label.setText(_translate("MainWindow", "Norma de material"))
         self.Tension_ultima_label.setText(_translate("MainWindow", "Tension ultima"))
         self.Unidades_tension_fluencia_comboBox.setItemText(0, _translate("MainWindow", "kg/mm2"))
@@ -617,6 +811,9 @@ class Ui_MainWindow(object):
         self.Tipo_Material_comboBox.setItemText(1, _translate("MainWindow", "Fundicion"))
         self.Tipo_Material_comboBox.setItemText(2, _translate("MainWindow", "Aluminio"))
         self.Tipo_Material_comboBox.setItemText(3, _translate("MainWindow", "Titanio"))
+
+        self.Codigo_material_label.setText(_translate("MainWindow", "Codigo de material"))
+        
         self.Trat_termico_checkBox.setText(_translate("MainWindow", "Tratamineto termico"))
         self.Norma_material_comboBox.setItemText(0, _translate("MainWindow", "SAE"))
         self.Norma_material_comboBox.setItemText(1, _translate("MainWindow", "AISI"))

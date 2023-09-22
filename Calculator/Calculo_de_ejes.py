@@ -8,8 +8,6 @@ import time
 
 # st = time.time()
 
-
-
 ############################################################################################
 #Aclaraciones:
 
@@ -38,28 +36,28 @@ import time
 ###########################################################################################
 #Parametros del problema (Ejemplo 7-1 pag 370)
 
-d = 27.94 #Diametro menor [mm]
-Diametro_mayor = 41.91 #Diametro mayor [mm]
-r = 2.794 #Radio de empalme [mm]
+# d = 27.94 #Diametro menor [mm]
+# Diametro_mayor = 41.91 #Diametro mayor [mm]
+# r = 2.794 #Radio de empalme [mm]
 
-Ma = 22.5010 #Momento alterno de flexion [kg.mm]
-Mm = 0 #Momento medio de flexion [kg.mm]
-Ta = 0 #Torsion alterna [kg.mm]
-Tm = 19.6437 #Torsion media [kg.mm]
+# Ma = 22.5010 #Momento alterno de flexion [kg.mm]
+# Mm = 0 #Momento medio de flexion [kg.mm]
+# Ta = 0 #Torsion alterna [kg.mm]
+# Tm = 19.6437 #Torsion media [kg.mm]
 
-n = 1 #Coeficiente de seguridad
+# n = 1 #Coeficiente de seguridad
 ####################################################################################################
 
-#Variables del material
-with open("materialesSAE.json", "r") as file:
-    materialesSAE = json.load(file)
+# #Variables del material
+# with open("materialesSAE.json", "r") as file:
+#     materialesSAE = json.load(file)
 
-material_name = "Ejemplo"
+# material_name = "Ejemplo"
 
 
-Su = materialesSAE[material_name]["Su"] #Tension ultima
-Sy = materialesSAE[material_name]["Sy"] #Tension de fluencia
-Se = Fatiga.tension_fatiga(Su, True, d) #Tension limite de fatiga
+# Su = materialesSAE[material_name]["Su"] #Tension ultima
+# Sy = materialesSAE[material_name]["Sy"] #Tension de fluencia
+# Se = Fatiga.tension_fatiga(Su, True, d) #Tension limite de fatiga
 #####################################################################################################
 
 #Concentracion de tensiones
@@ -128,13 +126,62 @@ n_soderberg =  1 / ((16 / (np.pi * (d2**3))) * (((1/Se2) * (((4 * ((kf*Ma2)**2))
 S_max = (((((32 * kf * (Mm2 + Ma2))/(np.pi * (d2**3)))**2) + (3 * (((16 * kfs * (Ta2 + Tm2))/(np.pi * (d2**3)))**2)))**(1/2)) * 0.000703069 #Tension maxima generada al primer ciclo de carga
 n_y = Sy / S_max #Coeficiente de seguridad de tension maxima de fluencia
 
-def calcular_ejes():
-    print("Calculo de ejes")
-    print("Parametros del problema: \n","Diametro Menor: ", d, " mm \n", "Diametro Mayor: ", Diametro_mayor, " mm \n","Radio de empalme: ", r, " mm\n" )
-    print("Caracteristicas del material: \n", "Su: ", Su, round(Su2,3), " kg/mm2 (kpsi)\n", "Sy: ", Sy, round(Sy2,3), " kg/mm2 (kpsi)\n", "Se: ", round(Se, 3), round(Se2, 3), " kg/mm2 (kpsi)\n", sep=" ")
-    print("Cocnentracion de tensiones: \n", "kt y kts: ", kt, kts, sep=" ")
-    print("\n q y qs: ", round(q, 3), round(qs, 3), sep=" ")
-    print("\n kf y kfs: ", round(kf, 3), round(kfs, 3), sep=" ")
+def calculo_ejes_geometria(seccion, medida_representativa_1, medida_representativa_2, longitud, vel_giro):
+    if seccion == "Circular":
+        area, second_moment_area, second_moment_torsion = Secciones.Circle(medida_representativa_1)
+
+    elif seccion == "Circular Hueca":
+        print("seccion no desarrollada")
+
+    elif seccion == "Cuadrada":
+        print("seccion no desarrollada")
+    
+    elif seccion == "Cuadrada hueca":
+        print("seccion no desarrollada")
+    
+    elif seccion == "Rectangular":
+        area, second_moment_area , second_moment_torsion = Secciones.Rectangle(medida_representativa_1, medida_representativa_2)
+    
+    elif seccion == "Rectangular hueca":
+        print("seccion no desarrollada")
+
+    else:
+        print("seccion no desarrollada")
+
+    longitud = longitud
+    vel_giro = vel_giro
+
+    return area, second_moment_area, second_moment_torsion, longitud, vel_giro
+
+# def calculo_ejes_esfuerzos(momento_alterno_flexion, momento_medio_flexion, torsion_alterna, torsion_media, esfuerzo_axial_traccion, esfuerzo_axial_compresion):
+    
+
+#     tension_alterna_flexion = (momento_alterno_flexion * c / I )
+#     smf = kf * (momento_medio_flexion * c / I )
+
+#     tat = kfs * (Ta * c / J)
+#     tmt = kfs * (Tm * c / J)
+
+#     sa = ((saf_g**2) + (3 * (tat_g**2)))**(1/2) #Sigma alterno
+#     sm = ((smf_g**2) + (3 * (tmt_g**2)))**(1/2) #Sigma medio
+
+
+def calculo_ejes_material(tipo_material, norma_material, proceso_fabricacion, check_dureza, dureza, tipo_dureza, check_tratamiento_termico, tipo_tratamiento_termico):
+    
+    if tipo_material == "Acero":
+
+        if norma_material == "SAE":
+
+            with open("materialesSAE.json", "r") as file:
+                materialesSAE = json.load(file)
+
+                material_name = "Ejemplo"
+        else:
+            text = "Norma de material no cargada"
+            print(text)
+    else:
+        text = "Tipo de material no cargado"
+        print(text)
 
 # print("\n Diametro minimo por Goodman: ", round(d_goodman, 3))
 # print("\n Coeficiente de seguridad por Goodman: ", round(n_goodman, 2))

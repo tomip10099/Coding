@@ -22,8 +22,6 @@ def get_data_ejes():
     momento_medio_flexion = ui.mom_med_flex_lineEdit.text()
     torsion_alterna = ui.torsion_alt_lineEdit.text()
     torsion_media = ui.torsion_media_lineEdit.text()
-    esfuerzo_axial_traccion = ui.esf_axial_traccion_lineEdit.text()
-    esfuerzo_axial_compresion = ui.esf_axial_compresion_lineEdit.text()
 
     tipo_material = ui.Tipo_Material_comboBox.currentText()
     norma_material = ui.Norma_material_comboBox.currentText()
@@ -47,6 +45,7 @@ def get_data_ejes():
 
 
     #line_edit.textChanged.connect(lambda text: button.setEnabled(len(text) > 0))
+    print("Calculo finalizado")
 
 
 def modulos_ejes():
