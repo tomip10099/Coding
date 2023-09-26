@@ -1,7 +1,7 @@
 #Main program
 
 from GUI_v01 import *
-from Calculo_de_ejes import *
+#from Calculo_de_ejes import *
 import sys
 import time
 
