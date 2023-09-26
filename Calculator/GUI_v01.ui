@@ -436,11 +436,32 @@
          <property name="bottomMargin">
           <number>2</number>
          </property>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="torsion_media_lineEdit"/>
+         <item row="3" column="0">
+          <widget class="QLabel" name="torsion_media_label">
+           <property name="text">
+            <string>Torsion media</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="mom_alt_flex_lineEdit"/>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="torsion_alt_lineEdit"/>
+         </item>
+         <item row="1" column="2">
+          <widget class="QComboBox" name="unidades_mom_med_flex_comboBox">
+           <item>
+            <property name="text">
+             <string>kg.mm</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>psi.in</string>
+            </property>
+           </item>
+          </widget>
          </item>
          <item row="0" column="2">
           <widget class="QComboBox" name="unidades_mom_alt_flex_comboBox">
@@ -456,18 +477,37 @@
            </item>
           </widget>
          </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="esf_axial_traccion_label">
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="torsion_media_lineEdit"/>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="mom_med_flex_lineEdit"/>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="mom_alt_flex_lineEdit"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="mom_alt_flex_label">
            <property name="text">
-            <string>Esfuerzo Axial Traccion</string>
+            <string>Momento alterno de flexion</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item row="1" column="2">
-          <widget class="QComboBox" name="unidades_mom_med_flex_comboBox">
+         <item row="2" column="0">
+          <widget class="QLabel" name="torsion_alterna_label">
+           <property name="text">
+            <string>Torsion alterna</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QComboBox" name="unidades_mom_alt_tor_comboBox">
            <item>
             <property name="text">
              <string>kg.mm</string>
@@ -494,56 +534,6 @@
            </item>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="mom_alt_flex_label">
-           <property name="text">
-            <string>Momento alterno de flexion</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="mom_med_flex_lineEdit"/>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="torsion_alterna_label">
-           <property name="text">
-            <string>Torsion alterna</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLineEdit" name="torsion_alt_lineEdit"/>
-         </item>
-         <item row="2" column="2">
-          <widget class="QComboBox" name="unidades_mom_alt_tor_comboBox">
-           <item>
-            <property name="text">
-             <string>kg.mm</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>psi.in</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="torsion_media_label">
-           <property name="text">
-            <string>Torsion media</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="0">
           <widget class="QLabel" name="mom_med_flex_label">
            <property name="text">
@@ -552,50 +542,6 @@
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QLabel" name="esf_axial_comp_label">
-           <property name="text">
-            <string>Esfuerzo Axial Compresion</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QLineEdit" name="esf_axial_traccion_lineEdit"/>
-         </item>
-         <item row="5" column="1">
-          <widget class="QLineEdit" name="esf_axial_compresion_lineEdit"/>
-         </item>
-         <item row="4" column="2">
-          <widget class="QComboBox" name="unidades_esf_axial_trac_comboBox">
-           <item>
-            <property name="text">
-             <string>kg.mm</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>psi.in</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="5" column="2">
-          <widget class="QComboBox" name="unidades_esf_axial_compr_comboBox">
-           <item>
-            <property name="text">
-             <string>kg.mm</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>psi.in</string>
-            </property>
-           </item>
           </widget>
          </item>
         </layout>
