@@ -616,135 +616,217 @@ class Ui_MainWindow(object):
         self.graphicsView.setGeometry(QtCore.QRect(790, 120, 391, 251))
         self.graphicsView.setObjectName("graphicsView")
 
-        #Se crea el cuadro de graficos 1
+        #Se crea el cuadro de graficos 2
         self.graphicsView_2 = QtWidgets.QGraphicsView(self.groupBox_resultados)
-        self.graphicsView_2.setGeometry(QtCore.QRect(370, 120, 391, 251))
+        self.graphicsView_2.setGeometry(QtCore.QRect(380, 120, 391, 251))
         self.graphicsView_2.setObjectName("graphicsView_2")
+
+        #Se crea el gridLayout de resultados de diametros y coeficientes de seguridad
+        self.gridLayoutWidget = QtWidgets.QWidget(self.groupBox_resultados)
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 120, 350, 251))
+        self.gridLayoutWidget.setObjectName("gridLayoutWidget")
+        self.Grid_resultados = QtWidgets.QGridLayout(self.gridLayoutWidget)
+        self.Grid_resultados.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
+        self.Grid_resultados.setContentsMargins(6, 2, 6, 2)
+        self.Grid_resultados.setHorizontalSpacing(6)
+        self.Grid_resultados.setVerticalSpacing(6)
+        self.Grid_resultados.setObjectName("Grid_resultados")
 
         #Se crea la label de unidades de diametros minimos
         self.unidades_diametros_minimos_label = QtWidgets.QLabel(self.groupBox_resultados)
-        self.unidades_diametros_minimos_label.setGeometry(QtCore.QRect(10, 20, 91, 16))
+        self.unidades_diametros_minimos_label.setGeometry(QtCore.QRect(2, 2, 91, 20))
         self.unidades_diametros_minimos_label.setObjectName("unidades_diametros_minimos_label")
+
+        self.Grid_resultados.addWidget(self.unidades_diametros_minimos_label, 0, 0, 1, 1)
         
         #Se crea el comboBox de unidades de diametros minimos
         self.unidades_diametros_minimos_comboBox = QtWidgets.QComboBox(self.groupBox_resultados)
-        self.unidades_diametros_minimos_comboBox.setGeometry(QtCore.QRect(100, 20, 41, 22))
+        self.unidades_diametros_minimos_comboBox.setGeometry(QtCore.QRect(99, 2, 90, 20))
         self.unidades_diametros_minimos_comboBox.setObjectName("unidades_diametros_minimos_comboBox")
         self.unidades_diametros_minimos_comboBox.addItem("")
         self.unidades_diametros_minimos_comboBox.addItem("")
 
+        self.Grid_resultados.addWidget(self.unidades_diametros_minimos_comboBox, 0, 1, 1, 2)
+
         #Se crea label de DE-goodman
         self.de_goodman_label = QtWidgets.QLabel(self.groupBox_resultados)
-        self.de_goodman_label.setGeometry(QtCore.QRect(10, 50, 71, 16))
+        self.de_goodman_label.setGeometry(QtCore.QRect(2, 28, 91, 37))
         self.de_goodman_label.setObjectName("de_goodman_label")
+
+        self.Grid_resultados.addWidget(self.de_goodman_label, 1, 0, 1, 1)
 
         #Se crea label de resultado de DE-goodman
         self.resultado_de_goodman_label = QtWidgets.QLabel(self.groupBox_resultados)
-        self.resultado_de_goodman_label.setGeometry(QtCore.QRect(90, 50, 47, 13))
+        self.resultado_de_goodman_label.setGeometry(QtCore.QRect(99, 28, 90, 37))
         self.resultado_de_goodman_label.setObjectName("resultado_de_goodman_label")
+
+        self.Grid_resultados.addWidget(self.resultado_de_goodman_label, 1, 1, 1, 1)
 
         #se crea label de DE-gerber
         self.de_gerber_label = QtWidgets.QLabel(self.groupBox_resultados)
-        self.de_gerber_label.setGeometry(QtCore.QRect(10, 70, 61, 16))
+        self.de_gerber_label.setGeometry(QtCore.QRect(2, 71, 90, 38))
         self.de_gerber_label.setObjectName("de_gerber_label")
+
+        self.Grid_resultados.addWidget(self.de_gerber_label, 2, 0, 1, 1)
 
         #Se crea label de resultado de DE-gerber
         self.resultado_de_gerber_label = QtWidgets.QLabel(self.groupBox_resultados)
-        self.resultado_de_gerber_label.setGeometry(QtCore.QRect(90, 70, 47, 13))
+        self.resultado_de_gerber_label.setGeometry(QtCore.QRect(99, 71, 90, 38))
         self.resultado_de_gerber_label.setObjectName("resultado_de_gerber_label")
+
+        self.Grid_resultados.addWidget(self.resultado_de_gerber_label, 2, 1, 1, 1)
 
         #Se crea label de DE-ASME
         self.de_asme_label = QtWidgets.QLabel(self.groupBox_resultados)
-        self.de_asme_label.setGeometry(QtCore.QRect(10, 100, 51, 16))
+        self.de_asme_label.setGeometry(QtCore.QRect(2, 115, 90, 37))
         self.de_asme_label.setObjectName("de_asme_label")
+
+        self.Grid_resultados.addWidget(self.de_asme_label, 3, 0, 1, 1)
 
         #Se crea label de resultado de DE-ASME
         self.resultado_de_asme_label = QtWidgets.QLabel(self.groupBox_resultados)
-        self.resultado_de_asme_label.setGeometry(QtCore.QRect(90, 100, 47, 13))
+        self.resultado_de_asme_label.setGeometry(QtCore.QRect(99, 115, 90, 37))
         self.resultado_de_asme_label.setObjectName("resultado_de_asme_label")
+
+        self.Grid_resultados.addWidget(self.resultado_de_asme_label, 3, 1, 1, 1)
 
         #Se crea label de DE-Soderberg
         self.de_soderberg_label = QtWidgets.QLabel(self.groupBox_resultados)
-        self.de_soderberg_label.setGeometry(QtCore.QRect(10, 130, 71, 16))
+        self.de_soderberg_label.setGeometry(QtCore.QRect(2, 158, 90, 37))
         self.de_soderberg_label.setObjectName("de_soderberg_label")
+
+        self.Grid_resultados.addWidget(self.de_soderberg_label, 4, 0, 1, 1)
 
         #Se crea label de resultado de DE-Soderberg
         self.resultado_de_soderberg_label = QtWidgets.QLabel(self.groupBox_resultados)
-        self.resultado_de_soderberg_label.setGeometry(QtCore.QRect(90, 130, 47, 13))
+        self.resultado_de_soderberg_label.setGeometry(QtCore.QRect(99, 158, 90, 37))
         self.resultado_de_soderberg_label.setObjectName("resultado_de_soderberg_label")
 
-        #Se crea label de coeficiente de seguridaed
+        self.Grid_resultados.addWidget(self.resultado_de_soderberg_label, 4, 1, 1, 1)
+
+        #Se crea label de coeficiente de seguridad
         self.coeficiente_seguridad_label = QtWidgets.QLabel(self.groupBox_resultados)
-        self.coeficiente_seguridad_label.setGeometry(QtCore.QRect(10, 180, 131, 16))
+        self.coeficiente_seguridad_label.setGeometry(QtCore.QRect(195, 2, 90, 20))
         self.coeficiente_seguridad_label.setObjectName("coeficiente_seguridad_label")
 
-  
+        self.Grid_resultados.addWidget(self.coeficiente_seguridad_label, 0, 3, 1, 1)
 
-        self.label_35 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_35.setGeometry(QtCore.QRect(90, 260, 47, 13))
-        self.label_35.setObjectName("label_35")
-        self.label_36 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_36.setGeometry(QtCore.QRect(90, 290, 47, 13))
-        self.label_36.setObjectName("label_36")
-        self.label_37 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_37.setGeometry(QtCore.QRect(90, 210, 47, 13))
-        self.label_37.setObjectName("label_37")
-        self.label_38 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_38.setGeometry(QtCore.QRect(90, 230, 47, 13))
-        self.label_38.setObjectName("label_38")
+        #Se crea label de coeficiente de seguridad de DE-Goodman
+        self.coeficiente_seguridad_goodman_label = QtWidgets.QLabel(self.groupBox_resultados)
+        self.coeficiente_seguridad_goodman_label.setGeometry(QtCore.QRect(195, 28, 90, 37))
+        self.coeficiente_seguridad_goodman_label.setObjectName("coeficiente_seguridad_goodman_label")
 
-        self.label_41 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_41.setGeometry(QtCore.QRect(10, 320, 81, 16))
-        self.label_41.setObjectName("label_41")
-        self.label_42 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_42.setGeometry(QtCore.QRect(100, 320, 47, 16))
-        self.label_42.setObjectName("label_42")
-        self.label_43 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_43.setGeometry(QtCore.QRect(160, 10, 131, 16))
-        self.label_43.setObjectName("label_43")
-        self.label_44 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_44.setGeometry(QtCore.QRect(300, 10, 47, 13))
-        self.label_44.setObjectName("label_44")
-        self.label_45 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_45.setGeometry(QtCore.QRect(160, 30, 91, 16))
-        self.label_45.setObjectName("label_45")
-        self.label_46 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_46.setGeometry(QtCore.QRect(300, 30, 47, 13))
-        self.label_46.setObjectName("label_46")
-        self.label_47 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_47.setGeometry(QtCore.QRect(160, 50, 91, 16))
-        self.label_47.setObjectName("label_47")
-        self.label_48 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_48.setGeometry(QtCore.QRect(300, 50, 47, 13))
-        self.label_48.setObjectName("label_48")
-        self.comboBox_20 = QtWidgets.QComboBox(self.groupBox_resultados)
-        self.comboBox_20.setGeometry(QtCore.QRect(400, 60, 131, 22))
-        self.comboBox_20.setObjectName("comboBox_20")
-        self.comboBox_20.addItem("")
-        self.comboBox_20.addItem("")
-        self.comboBox_20.addItem("")
-        self.pushButton_6 = QtWidgets.QPushButton(self.groupBox_resultados)
-        self.pushButton_6.setGeometry(QtCore.QRect(460, 20, 75, 23))
-        self.pushButton_6.setObjectName("pushButton_6")
-        self.label_50 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_50.setGeometry(QtCore.QRect(420, 10, 47, 16))
-        self.label_50.setObjectName("label_50")
-        self.label_51 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_51.setGeometry(QtCore.QRect(330, 10, 71, 16))
-        self.label_51.setObjectName("label_51")
-        self.label_52 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_52.setGeometry(QtCore.QRect(330, 30, 91, 16))
-        self.label_52.setObjectName("label_52")
-        self.label_53 = QtWidgets.QLabel(self.groupBox_resultados)
-        self.label_53.setGeometry(QtCore.QRect(430, 30, 47, 16))
-        self.label_53.setObjectName("label_53")
+        self.Grid_resultados.addWidget(self.coeficiente_seguridad_goodman_label, 1, 3, 1, 1)
 
+        #Se crea label de coeficiente de seguridad de De Gerber
+        self.coeficiente_seguridad_gerber_label = QtWidgets.QLabel(self.groupBox_resultados)
+        self.coeficiente_seguridad_gerber_label.setGeometry(QtCore.QRect(195, 71, 90, 38))
+        self.coeficiente_seguridad_gerber_label.setObjectName("coeficiente_seguridad_gerber_label")
+
+        self.Grid_resultados.addWidget(self.coeficiente_seguridad_gerber_label, 2, 3, 1, 1)
+
+        #Se crea label de coeficiente de seguridad de DE Asme
+        self.coeficiente_seguridad_asme_label = QtWidgets.QLabel(self.groupBox_resultados)
+        self.coeficiente_seguridad_asme_label.setGeometry(QtCore.QRect(195, 115, 90, 37))
+        self.coeficiente_seguridad_asme_label.setObjectName("coeficiente_seguridad_asme_label")
+
+        self.Grid_resultados.addWidget(self.coeficiente_seguridad_asme_label, 3, 3, 1, 1)
+
+        #Se crea label de coeficiente de seguridad de DE Soderberg
+        self.coeficiente_seguridad_soderberg_label = QtWidgets.QLabel(self.groupBox_resultados)
+        self.coeficiente_seguridad_soderberg_label.setGeometry(QtCore.QRect(195, 158, 90, 38))
+        self.coeficiente_seguridad_soderberg_label.setObjectName("coeficiente_seguridad_soderberg_label")
+
+        self.Grid_resultados.addWidget(self.coeficiente_seguridad_soderberg_label, 4, 3, 1, 1)
+
+        #Se crea label de tension maxima
+        self.tension_maxima_label = QtWidgets.QLabel(self.groupBox_resultados)
+        self.tension_maxima_label.setGeometry(QtCore.QRect(2, 202, 187, 37))
+        self.tension_maxima_label.setObjectName("tension_maxima_label")
+
+        self.Grid_resultados.addWidget(self.tension_maxima_label, 5, 0, 1, 2)
+
+        #Se crea label de coeficiente de seguridad de tension maxima
+        self.coeficiente_seguridad_tension_maxima_label = QtWidgets.QLabel(self.groupBox_resultados)
+        self.coeficiente_seguridad_tension_maxima_label.setGeometry(QtCore.QRect(195, 202, 90, 37))
+        self.coeficiente_seguridad_tension_maxima_label.setObjectName("coeficiente_seguridad_tension_maxima_label")
+
+        self.Grid_resultados.addWidget(self.coeficiente_seguridad_tension_maxima_label, 5, 3, 1, 1)
+        ########################################################################################
+
+        #Se crea label de tension maxima alcanzada
+        self.tension_maxima_alcanzada_label = QtWidgets.QLabel(self.groupBox_resultados)
+        self.tension_maxima_alcanzada_label.setGeometry(QtCore.QRect(160, 10, 131, 16))
+        self.tension_maxima_alcanzada_label.setObjectName("tension_maxima_alcanzada_label")
+
+        #Se crea label del resultado de la tension maxima alcanzada
+        self.resultado_tension_maxima_alcanzada_label = QtWidgets.QLabel(self.groupBox_resultados)
+        self.resultado_tension_maxima_alcanzada_label.setGeometry(QtCore.QRect(300, 10, 47, 13))
+        self.resultado_tension_maxima_alcanzada_label.setObjectName("resultado_tension_maxima_alcanzada_label")
+
+        #Se crea label de tension de fatiga
+        self.tension_de_fatiga_label = QtWidgets.QLabel(self.groupBox_resultados)
+        self.tension_de_fatiga_label.setGeometry(QtCore.QRect(160, 30, 91, 16))
+        self.tension_de_fatiga_label.setObjectName("tension_de_fatiga_label")
+
+        #Se crea label de resultado de tension de fatiga
+        self.resultado_tension_fatiga = QtWidgets.QLabel(self.groupBox_resultados)
+        self.resultado_tension_fatiga.setGeometry(QtCore.QRect(300, 30, 47, 13))
+        self.resultado_tension_fatiga.setObjectName("resultado_tension_fatiga")
+
+        #Se  crea label de velocidad critica
+        self.velocidad_critica_label = QtWidgets.QLabel(self.groupBox_resultados)
+        self.velocidad_critica_label.setGeometry(QtCore.QRect(160, 50, 91, 16))
+        self.velocidad_critica_label.setObjectName("velocidad_critica_label")
+
+        #Se crea label de resultado de velocidad critica
+        self.resultado_velocidad_critica = QtWidgets.QLabel(self.groupBox_resultados)
+        self.resultado_velocidad_critica.setGeometry(QtCore.QRect(300, 50, 47, 13))
+        self.resultado_velocidad_critica.setObjectName("resultado_velocidad_critica")
+
+        #Se crea label de flecha maxima
+        self.flecha_maxima_label = QtWidgets.QLabel(self.groupBox_resultados)
+        self.flecha_maxima_label.setGeometry(QtCore.QRect(330, 10, 71, 16))
+        self.flecha_maxima_label.setObjectName("flecha_maxima_label")
+
+        #Se crea label de resultado de flecha mxima
+        self.resultado_flecha_maxima = QtWidgets.QLabel(self.groupBox_resultados)
+        self.resultado_flecha_maxima.setGeometry(QtCore.QRect(420, 10, 47, 16))
+        self.resultado_flecha_maxima.setObjectName("resultado_flecha_maxima")
+
+        #Se crea label de angulo de rotacion
+        self.angulo_rotacion_label = QtWidgets.QLabel(self.groupBox_resultados)
+        self.angulo_rotacion_label.setGeometry(QtCore.QRect(330, 30, 91, 16))
+        self.angulo_rotacion_label.setObjectName("angulo_rotacion_label")
+
+        #Se crea label de resultado de angulo de rotacion
+        self.resultado_angulo_rotacion = QtWidgets.QLabel(self.groupBox_resultados)
+        self.resultado_angulo_rotacion.setGeometry(QtCore.QRect(430, 30, 47, 16))
+        self.resultado_angulo_rotacion.setObjectName("resultado_angulo_rotacion")
+
+        #Se crea comboBox para elegir el grafico
+        self.eleccion_grafico_1_comboBox = QtWidgets.QComboBox(self.groupBox_resultados)
+        self.eleccion_grafico_1_comboBox.setGeometry(QtCore.QRect(400, 60, 131, 22))
+        self.eleccion_grafico_1_comboBox.setObjectName("eleccion_grafico_1_comboBox")
+        self.eleccion_grafico_1_comboBox.addItem("")
+        self.eleccion_grafico_1_comboBox.addItem("")
+        self.eleccion_grafico_1_comboBox.addItem("")
+
+        #Se crea boton para actualizar los resultados
+        self.actualizar_resultados_pushButton = QtWidgets.QPushButton(self.groupBox_resultados)
+        self.actualizar_resultados_pushButton.setGeometry(QtCore.QRect(460, 20, 75, 23))
+        self.actualizar_resultados_pushButton.setObjectName("actualizar_resultados_pushButton")
+
+        ############################################################################################
+        #Se crea el horizontal layout de botones de calculo y reseteo de valores
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.Calculo_ejes_tab)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(390, 750, 541, 51))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.botones_horizontal_layout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.botones_horizontal_layout.setContentsMargins(0, 0, 0, 0)
+        self.botones_horizontal_layout.setObjectName("botones_horizontal_layout")
+
+        #Se crea boton de calcular
         self.Calcular_pushButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -757,25 +839,33 @@ class Ui_MainWindow(object):
         font.setPointSize(8)
         self.Calcular_pushButton.setFont(font)
         self.Calcular_pushButton.setObjectName("Calcular_pushButton")
-        self.horizontalLayout.addWidget(self.Calcular_pushButton)
+        self.botones_horizontal_layout.addWidget(self.Calcular_pushButton)
+
+        #Se crea boton para resetear valores
         self.Reset_valores_pushButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.Reset_valores_pushButton.setMinimumSize(QtCore.QSize(200, 40))
         self.Reset_valores_pushButton.setMaximumSize(QtCore.QSize(200, 100))
         self.Reset_valores_pushButton.setObjectName("Reset_valores_pushButton")
-        self.horizontalLayout.addWidget(self.Reset_valores_pushButton)
+        self.botones_horizontal_layout.addWidget(self.Reset_valores_pushButton)
+
+        #Se crea el horizontal layout para el coeficiente de seguridad
         self.horizontalLayoutWidget_2 = QtWidgets.QWidget(self.Calculo_ejes_tab)
         self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(660, 10, 208, 51))
         self.horizontalLayoutWidget_2.setObjectName("horizontalLayoutWidget_2")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
-        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.coeficiente_seguridad_horizontal_layout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
+        self.coeficiente_seguridad_horizontal_layout.setContentsMargins(0, 0, 0, 0)
+        self.coeficiente_seguridad_horizontal_layout.setObjectName("coeficiente_seguridad_horizontal_layout")
+
+        #Se crea el checkBox de coeficiente de seguridad
         self.coeficiente_seguridad_checkBox = QtWidgets.QCheckBox(self.horizontalLayoutWidget_2)
         self.coeficiente_seguridad_checkBox.setObjectName("coeficiente_seguridad_checkBox")
-        self.horizontalLayout_2.addWidget(self.coeficiente_seguridad_checkBox)
+        self.coeficiente_seguridad_horizontal_layout.addWidget(self.coeficiente_seguridad_checkBox)
+
+        #Se crea el lineEdit del coeficiente de seguridad
         self.Coeficiente_seguridad_lineEdit = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.Coeficiente_seguridad_lineEdit.setObjectName("Coeficiente_seguridad_lineEdit")
         self.Coeficiente_seguridad_lineEdit.setValidator(QtGui.QIntValidator(0, 100))
-        self.horizontalLayout_2.addWidget(self.Coeficiente_seguridad_lineEdit)
+        self.coeficiente_seguridad_horizontal_layout.addWidget(self.Coeficiente_seguridad_lineEdit)
 
         self.tabWidget.addTab(self.Calculo_ejes_tab, "")
         self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
@@ -867,30 +957,30 @@ class Ui_MainWindow(object):
         self.resultado_de_asme_label.setText(_translate("MainWindow", "0"))
         self.resultado_de_soderberg_label.setText(_translate("MainWindow", "0"))
         self.coeficiente_seguridad_label.setText(_translate("MainWindow", "Coeficientes de seguridad"))
-        self.label_33.setText(_translate("MainWindow", "DE-Goodman"))
-        self.label_34.setText(_translate("MainWindow", "DE-Soderberg"))
-        self.label_35.setText(_translate("MainWindow", "0"))
-        self.label_36.setText(_translate("MainWindow", "0"))
-        self.label_37.setText(_translate("MainWindow", "0"))
-        self.label_38.setText(_translate("MainWindow", "0"))
-        self.label_39.setText(_translate("MainWindow", "DE-Gerber"))
-        self.label_40.setText(_translate("MainWindow", "DE-ASME"))
-        self.label_41.setText(_translate("MainWindow", "Tension maxima"))
-        self.label_42.setText(_translate("MainWindow", "0"))
-        self.label_43.setText(_translate("MainWindow", "Tension maxima alcanzada"))
-        self.label_44.setText(_translate("MainWindow", "0"))
-        self.label_45.setText(_translate("MainWindow", "Tension de fatiga"))
-        self.label_46.setText(_translate("MainWindow", "0"))
-        self.label_47.setText(_translate("MainWindow", "Velocidad critica"))
-        self.label_48.setText(_translate("MainWindow", "0"))
-        self.comboBox_20.setItemText(0, _translate("MainWindow", "Curva de fallo"))
-        self.comboBox_20.setItemText(1, _translate("MainWindow", "Deflexion"))
-        self.comboBox_20.setItemText(2, _translate("MainWindow", "Velocidades criticas"))
-        self.pushButton_6.setText(_translate("MainWindow", "Actualizar"))
-        self.label_50.setText(_translate("MainWindow", "0"))
-        self.label_51.setText(_translate("MainWindow", "Flecha maxima"))
-        self.label_52.setText(_translate("MainWindow", "Angulo de rotacion"))
-        self.label_53.setText(_translate("MainWindow", "0"))
+        self.de_goodman_label.setText(_translate("MainWindow", "DE-Goodman"))
+        self.de_soderberg_label.setText(_translate("MainWindow", "DE-Soderberg"))
+        self.coeficiente_seguridad_goodman_label.setText(_translate("MainWindow", "0"))
+        self.coeficiente_seguridad_gerber_label.setText(_translate("MainWindow", "0"))
+        self.coeficiente_seguridad_asme_label.setText(_translate("MainWindow", "0"))
+        self.coeficiente_seguridad_soderberg_label.setText(_translate("MainWindow", "0"))
+        self.de_gerber_label.setText(_translate("MainWindow", "DE-Gerber"))
+        self.de_asme_label.setText(_translate("MainWindow", "DE-ASME"))
+        self.tension_maxima_label.setText(_translate("MainWindow", "Tension maxima"))
+        self.coeficiente_seguridad_tension_maxima_label.setText(_translate("MainWindow", "0"))
+        self.tension_maxima_alcanzada_label.setText(_translate("MainWindow", "Tension maxima alcanzada"))
+        self.resultado_tension_maxima_alcanzada_label.setText(_translate("MainWindow", "0"))
+        self.tension_de_fatiga_label.setText(_translate("MainWindow", "Tension de fatiga"))
+        self.resultado_tension_fatiga.setText(_translate("MainWindow", "0"))
+        self.velocidad_critica_label.setText(_translate("MainWindow", "Velocidad critica"))
+        self.resultado_velocidad_critica.setText(_translate("MainWindow", "0"))
+        self.eleccion_grafico_1_comboBox.setItemText(0, _translate("MainWindow", "Curva de fallo"))
+        self.eleccion_grafico_1_comboBox.setItemText(1, _translate("MainWindow", "Deflexion"))
+        self.eleccion_grafico_1_comboBox.setItemText(2, _translate("MainWindow", "Velocidades criticas"))
+        self.actualizar_resultados_pushButton.setText(_translate("MainWindow", "Actualizar"))
+        self.resultado_flecha_maxima.setText(_translate("MainWindow", "0"))
+        self.flecha_maxima_label.setText(_translate("MainWindow", "Flecha maxima"))
+        self.angulo_rotacion_label.setText(_translate("MainWindow", "Angulo de rotacion"))
+        self.resultado_angulo_rotacion.setText(_translate("MainWindow", "0"))
         self.Calcular_pushButton.setText(_translate("MainWindow", "Calcular"))
         self.Reset_valores_pushButton.setText(_translate("MainWindow", "Resetear valores"))
         self.coeficiente_seguridad_checkBox.setText(_translate("MainWindow", "Coeficiente de seguridad"))
