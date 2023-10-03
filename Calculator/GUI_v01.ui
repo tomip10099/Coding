@@ -853,8 +853,8 @@
       <widget class="QGroupBox" name="groupBox_Outputs">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>360</y>
+         <x>20</x>
+         <y>370</y>
          <width>1201</width>
          <height>391</height>
         </rect>
@@ -865,7 +865,7 @@
        <widget class="QGraphicsView" name="graphicsView">
         <property name="geometry">
          <rect>
-          <x>790</x>
+          <x>800</x>
           <y>120</y>
           <width>391</width>
           <height>251</height>
@@ -953,8 +953,8 @@
        <widget class="QComboBox" name="comboBox_20">
         <property name="geometry">
          <rect>
-          <x>400</x>
-          <y>60</y>
+          <x>1050</x>
+          <y>90</y>
           <width>131</width>
           <height>22</height>
          </rect>
@@ -1043,7 +1043,7 @@
        <widget class="QGraphicsView" name="graphicsView_2">
         <property name="geometry">
          <rect>
-          <x>370</x>
+          <x>380</x>
           <y>120</y>
           <width>391</width>
           <height>251</height>
@@ -1055,15 +1055,55 @@
          <rect>
           <x>30</x>
           <y>120</y>
-          <width>321</width>
+          <width>301</width>
           <height>241</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="2">
-          <widget class="QLabel" name="label_32">
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_23">
            <property name="text">
-            <string>Coeficientes de seguridad</string>
+            <string>Diametros minimos</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="label_28">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0" colspan="2">
+          <widget class="QLabel" name="label_41">
+           <property name="text">
+            <string>Tension maxima</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QLabel" name="label_35">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_27">
+           <property name="text">
+            <string>DE-Soderberg</string>
            </property>
           </widget>
          </item>
@@ -1081,17 +1121,17 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="label_28">
+         <item row="2" column="2">
+          <widget class="QLabel" name="label_38">
            <property name="text">
             <string>0</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_24">
+         <item row="5" column="2">
+          <widget class="QLabel" name="label_42">
            <property name="text">
-            <string>DE-Goodman</string>
+            <string>0</string>
            </property>
           </widget>
          </item>
@@ -1109,10 +1149,24 @@
            </item>
           </widget>
          </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_27">
+         <item row="1" column="2">
+          <widget class="QLabel" name="label_37">
            <property name="text">
-            <string>DE-Soderberg</string>
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLabel" name="label_31">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_24">
+           <property name="text">
+            <string>DE-Goodman</string>
            </property>
           </widget>
          </item>
@@ -1130,41 +1184,6 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="2">
-          <widget class="QLabel" name="label_37">
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="2">
-          <widget class="QLabel" name="label_35">
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_23">
-           <property name="text">
-            <string>Diametros minimos</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QLabel" name="label_31">
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QLabel" name="label_38">
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
-         </item>
          <item row="2" column="1">
           <widget class="QLabel" name="label_29">
            <property name="text">
@@ -1172,17 +1191,10 @@
            </property>
           </widget>
          </item>
-         <item row="5" column="0" colspan="2">
-          <widget class="QLabel" name="label_41">
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_32">
            <property name="text">
-            <string>Tension maxima</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="2">
-          <widget class="QLabel" name="label_42">
-           <property name="text">
-            <string>0</string>
+            <string>Coeficientes de seguridad</string>
            </property>
           </widget>
          </item>

@@ -587,17 +587,17 @@ class Ui_MainWindow(object):
         #################################################################
 
         #Se agrega label de factor Kft
-        self.Factor_kft_label = QtWidgets.QLabel(self.gridLayoutWidget_2)
-        self.Factor_kft_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.Factor_kft_label.setObjectName("Factor_kft_label")
+        self.Factor_kfs_label = QtWidgets.QLabel(self.gridLayoutWidget_2)
+        self.Factor_kfs_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.Factor_kfs_label.setObjectName("Factor_kfs_label")
 
-        self.Grid_Concentracion_tensiones.addWidget(self.Factor_kft_label, 3, 0, 1, 1)
+        self.Grid_Concentracion_tensiones.addWidget(self.Factor_kfs_label, 3, 0, 1, 1)
 
         #Se agrega lineEdit de factor Kft
-        self.Factor_kft_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_2)
-        self.Factor_kft_lineEdit.setObjectName("Factor_kft_lineEdit")
+        self.Factor_kfs_lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget_2)
+        self.Factor_kfs_lineEdit.setObjectName("Factor_kfs_lineEdit")
 
-        self.Grid_Concentracion_tensiones.addWidget(self.Factor_kft_lineEdit, 3, 1, 1, 1)
+        self.Grid_Concentracion_tensiones.addWidget(self.Factor_kfs_lineEdit, 3, 1, 1, 1)
 
         #Se agrega pushButton de calculo de concentracion de tensiones
         self.Calculo_concentracion_tension_pushButton = QtWidgets.QPushButton(self.gridLayoutWidget_2)
@@ -940,7 +940,7 @@ class Ui_MainWindow(object):
         self.Factor_Kf_label.setText(_translate("MainWindow", "Factor Kf "))
         self.Concentracion_tensiones_checkBox.setText(_translate("MainWindow", "Concentracion de tensiones"))
         self.Calculo_concentracion_tension_pushButton.setText(_translate("MainWindow", "Calculo completo"))
-        self.Factor_kft_label.setText(_translate("MainWindow", "Factor Kft"))
+        self.Factor_kfs_label.setText(_translate("MainWindow", "Factor Kfs"))
         self.tipo_concentracion_tension_comboBox.setItemText(0, _translate("MainWindow", "Radio empalme"))
         self.tipo_concentracion_tension_comboBox.setItemText(1, _translate("MainWindow", "Agujero transversal"))
         self.tipo_concentracion_tension_comboBox.setItemText(2, _translate("MainWindow", "Entalla"))

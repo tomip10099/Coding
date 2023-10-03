@@ -5,7 +5,7 @@ from GUI_v01 import *
 import sys
 import time
 
-def get_data_ejes():
+def calcular_ejes():
 
     caso = ui.Caso_comboBox.currentText()
     check_coeficiente_seguridad = ui.coeficiente_seguridad_checkBox.isChecked()
@@ -40,7 +40,7 @@ def get_data_ejes():
     check_concentracion_tensiones = ui.Concentracion_tensiones_checkBox.isChecked()
     tipo_concentracion_tensiones = ui.tipo_concentracion_tension_comboBox.currentText()
     factor_kf = ui.Factor_kf_lineEdit.text()
-    factor_kft = ui.Factor_kft_lineEdit.text()
+    factor_kfs = ui.Factor_kfs_lineEdit.text()
     #ui.concentracion_tensiones_pushButton.clicked.connect()
 
 
@@ -50,7 +50,7 @@ def get_data_ejes():
 
 def modulos_ejes():
     #Al presionar el boton CALCULAR en el modulo de ejes se obtienen los datos almacenados
-    ui.Calcular_pushButton.clicked.connect(lambda: get_data_ejes())
+    ui.Calcular_pushButton.clicked.connect(lambda: calcular_ejes())
 
 
 #Inicializar  el entorno grafico
