@@ -1,0 +1,34 @@
+Archivo para pruebas y comprobaciones de funcionamiento
+Calculo de ejes:
+Ejemplo 7-1 Pagina 370
+Valores input:
+    Caso estatico
+    n = 1 #Coeficiente de seguridad
+
+    Seccion circular
+    Diametro = 27.94 #Diametro menor [mm]
+
+    Ma = 22.5010 #Momento alterno de flexion [kg.mm]
+    Mm = 0 #Momento medio de flexion [kg.mm]
+    Ta = 0 #Torsion alterna [kg.mm]
+    Tm = 19.6437 #Torsion media [kg.mm]
+
+    Tipo material: Acero
+    Norma de material: SAE
+    Codigo material: Ejemplo
+    Proceso de fabricacion: HR
+    Tension de fluencia: 57.651
+    Tension ultima: 73.822
+
+    Contracion de tensiones: True
+    Radio empalme
+    kf: 1.58
+    Kft: 1.37
+
+resultados:
+    coeficientes de seguridad:
+    Goodman: 1.63
+    Gerber: 1.87
+    ASME: 1.88
+    Soderberg: 1.56
+    Langer: 4.5

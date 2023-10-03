@@ -871,9 +871,11 @@ class Ui_MainWindow(object):
         self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
 
         _translate = QtCore.QCoreApplication.translate
+
         self.Caso_comboBox.setItemText(0, _translate("MainWindow", "Caso estatico"))
         self.Caso_comboBox.setItemText(1, _translate("MainWindow", "Caso dinamico simple [sin Fatiga]"))
         self.Caso_comboBox.setItemText(2, _translate("MainWindow", "Caso dinamico completo [con Fatiga]"))
+
         self.groupBox_Inputs.setTitle(_translate("MainWindow", "Datos de calculo"))
         self.unidades_diametro_comboBox.setItemText(0, _translate("MainWindow", "mm"))
         self.Longitud_label_title.setText(_translate("MainWindow", "Longitud"))
@@ -986,6 +988,25 @@ class Ui_MainWindow(object):
         self.coeficiente_seguridad_checkBox.setText(_translate("MainWindow", "Coeficiente de seguridad"))
         self.Coeficiente_seguridad_lineEdit.setText(_translate("MainWindow", "1"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Calculo_ejes_tab), _translate("MainWindow", str(title)))
+
+        self.Diametro_input_lineEdit.setText(_translate("MainWindow", "0"))
+        self.Longitud_input_lineEdit.setText(_translate("MainWindow", "0"))
+        self.velocidad_giro_input_lineEdit.setText(_translate("MainWindow", "0"))
+        self.Momento_inercia_axial_input_lineEdit.setText(_translate("MainWindow", "0"))
+        self.Momento_inercia_polar_input_lineEdit.setText(_translate("MainWindow", "0"))
+
+        self.mom_alt_flex_lineEdit.setText(_translate("MainWindow", "0"))
+        self.mom_med_flex_lineEdit.setText(_translate("MainWindow", "0"))
+        self.torsion_alt_lineEdit.setText(_translate("MainWindow", "0"))
+        self.torsion_media_lineEdit.setText(_translate("MainWindow", "0"))
+
+        self.Dureza_lineEdit.setText(_translate("MainWindow", "0"))
+        self.Codigo_material_lineEdit.setText(_translate("MainWindow", "Ejemplo"))
+        self.Tension_fluencia_lineEdit.setText(_translate("MainWindow", "0"))
+        self.Tension_ultima_lineEdit.setText(_translate("MainWindow", "0"))
+
+        self.Factor_kf_lineEdit.setText(_translate("MainWindow", "1"))
+        self.Factor_kfs_lineEdit.setText(_translate("MainWindow", "1"))
 
         return True
 
