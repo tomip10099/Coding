@@ -84,13 +84,23 @@ def tensiones_base(p_interference, diametro_interno_base, diametro_externo_base,
 	
 	tension_axial_base = 0
 
-	tension_von_misses_base = np.sqrt(((((tension_radial_base - tension_tangencial_base)**2)+((tension_tangencial_base + tension_axial_base)**2)+((tension_radial_base - tension_axial_base)**2))/2) + (3 * (tension_corte_base**2)))
+	tension_von_misses_diametro_interno_base = np.sqrt(((((tension_radial_base - tension_tangencial_base)**2)+((tension_tangencial_base + tension_axial_base)**2)+((tension_radial_base - tension_axial_base)**2))/2) + (3 * (tension_corte_base**2)))
+
+	tension_tangencial_base_externo = (((diametro_externo_base**2)* p_interference)/((diametro_externo_base**2)-(diametro_interno_base**2))) * (1 + ((diametro_interno_base**2)/(diametro_externo_base**2)))
+
+	tension_radial_base_externo = 0
+
+	tension_von_misses_diametro_externo_base = np.sqrt(((((tension_radial_base_externo - tension_tangencial_base_externo)**2)+((tension_tangencial_base_externo + tension_axial_base)**2)+((tension_radial_base_externo - tension_axial_base)**2))/2) + (3 * (tension_corte_base**2)))
 	
 
-	return tension_tangencial_base, tension_radial_base, desplazamiento_radial_base
+	return tension_tangencial_base, tension_radial_base, desplazamiento_radial_base, tension_von_misses_diametro_interno_base, tension_tangencial_base_externo, tension_radial_base_externo, tension_von_misses_diametro_externo_base
 
-tension_tangencial_base, tension_radial_base, desplazamiento_radial_base = tensiones_base(p_interference, diametro_interno_base, diametro_externo_base, v_material_base, E_material_base)
+tension_tangencial_base, tension_radial_base, desplazamiento_radial_base, tension_von_misses_diametro_interno_base, tension_tangencial_base_externo, tension_radial_base_externo, tension_von_misses_diametro_externo_base = tensiones_base(p_interference, diametro_interno_base, diametro_externo_base, v_material_base, E_material_base)
 print("Tensiones en el material base: ")
 print("Tension tangencial diametro interno material base: ",round(tension_tangencial_base, 2), " Kg/mm2")
 print("Tension radial diametro interno material base: ",round(tension_radial_base, 2), " Kg/mm2")
 print("Desplazamiento radial material base: ",np.format_float_scientific(desplazamiento_radial_base, 2), " mm")
+print("Tension Von Misses diametro interno material base: ",round(tension_von_misses_diametro_interno_base, 2), " Kg/mm2")
+print("Tension tangencial diametro externo material base: ",round(tension_tangencial_base_externo, 2), " Kg/mm2")
+print("Tension radial diametro externo material base: ",round(tension_radial_base_externo, 2), " Kg/mm2")
+print("Tension Von Misses diametro externo material base: ",round(tension_von_misses_diametro_externo_base, 2), " Kg/mm2")
